@@ -1,12 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0b0b0c;
-  --foreground: #f6f5f2;
-  --muted: #9a9893;
+  --background: #faf9f7;
+  --foreground: #141413;
+  --muted: #6b6963;
   --accent: #2d5a47;
-  --surface: #141416;
-  --border: rgba(246, 245, 242, 0.08);
+  --accent-soft: rgba(45, 90, 71, 0.14);
+  --accent-muted: #e8f0eb;
+  --surface: #ffffff;
+  --surface-elevated: #f3f2ee;
+  --border: rgba(20, 20, 19, 0.09);
+  --radius: 1rem;
 }
 
 @theme inline {
@@ -15,6 +19,7 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
   --color-border: var(--border);
   --font-sans: var(--font-inter);
   --font-display: var(--font-sora);
@@ -33,32 +38,66 @@ html.lenis body {
   height: auto;
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
   color: var(--foreground);
 }
 
 .font-display {
   font-family: var(--font-sora), system-ui, sans-serif;
+}
+
+/* Single-word display highlight — use sparingly (once per headline) */
+.highlight-word {
+  position: relative;
+  display: inline-block;
+  color: var(--accent);
+  font-style: normal;
+}
+
+.highlight-word::after {
+  content: "";
+  position: absolute;
+  left: -0.06em;
+  right: -0.06em;
+  bottom: 0.06em;
+  height: 0.38em;
+  background: var(--accent-soft);
+  border-radius: 2px;
+  z-index: -1;
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.prose-muted {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.surface-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(20, 20, 19, 0.04);
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .link-underline {
@@ -86,30 +125,44 @@ body {
 
 .card-lift {
   transition:
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease;
 }
 
 .card-lift:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  transform: translateY(-3px);
+  border-color: rgba(20, 20, 19, 0.14);
+  box-shadow: 0 12px 32px rgba(20, 20, 19, 0.08);
 }
 
-.gradient-mesh {
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(45, 90, 71, 0.35), transparent),
-    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(196, 165, 116, 0.15), transparent),
-    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(91, 122, 157, 0.1), transparent),
-    var(--background);
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  padding: 0.375rem 0.875rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  background: var(--surface-elevated);
 }
 
-.grain::before {
-  content: "";
+.skip-link {
   position: absolute;
-  inset: 0;
-  opacity: 0.04;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  left: 1rem;
+  top: -100%;
+  z-index: 100;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -5,7 +5,7 @@ import { SECTORS } from "@/lib/constants";
 const sector = SECTORS.find((s) => s.slug === "it-software")!;
 
 export const metadata: Metadata = {
-  title: `Growth Consulting for ${sector.name}`,
+  title: sector.name,
   description: sector.tagline,
 };
 

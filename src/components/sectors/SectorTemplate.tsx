@@ -1,8 +1,12 @@
+import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealItem } from "@/components/ui/Reveal";
 import { LinkButton } from "@/components/ui/LinkButton";
+import { BrandMark } from "@/components/ui/Logo";
+import { IMAGES } from "@/lib/images";
 
 type SectorData = {
+  slug: string;
   name: string;
   tagline: string;
   accent: string;
@@ -11,86 +15,101 @@ type SectorData = {
   proof: string;
 };
 
+function isPlaceholder(text: string) {
+  return text.includes("[FILL IN]");
+}
+
 export function SectorTemplate({ sector }: { sector: SectorData }) {
+  const image =
+    IMAGES.sectors[sector.slug as keyof typeof IMAGES.sectors] ?? IMAGES.hero;
+  const showProof = !isPlaceholder(sector.proof);
+
   return (
     <main>
-      <section
-        className="relative flex min-h-[70vh] items-end overflow-hidden pb-16 pt-32 md:min-h-[80vh] md:pb-24"
-        style={{
-          background: `linear-gradient(180deg, ${sector.accent}18 0%, var(--background) 70%)`,
-        }}
-      >
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: `radial-gradient(ellipse 80% 60% at 70% 30%, ${sector.accent}40, transparent)`,
-          }}
+      <section className="relative flex min-h-[50vh] items-end overflow-hidden md:min-h-[58vh]">
+        <Image
+          src={image}
+          alt={sector.name}
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
         />
-        <Section className="relative">
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-white/20" />
+        <Section className="relative pb-12 pt-24 md:pb-16">
           <Reveal>
             <RevealItem>
-              <p className="text-xs uppercase tracking-widest text-muted">
-                Sector
-              </p>
+              <span
+                className="eyebrow inline-flex items-center gap-2"
+                style={{ color: sector.accent }}
+              >
+                <span
+                  className="inline-block h-1.5 w-1.5 rounded-full"
+                  style={{ backgroundColor: sector.accent }}
+                />
+                {sector.name}
+              </span>
             </RevealItem>
             <RevealItem className="mt-4">
-              <h1 className="font-display text-5xl font-medium tracking-tight md:text-6xl lg:text-7xl">
-                {sector.name}
+              <BrandMark size={32} className="mb-4 opacity-90" />
+              <h1 className="font-display max-w-3xl text-3xl font-medium leading-snug tracking-tight md:text-4xl lg:text-5xl">
+                {sector.tagline}
               </h1>
-            </RevealItem>
-            <RevealItem className="mt-8 max-w-3xl">
-              <p className="font-display text-xl leading-snug text-foreground/90 md:text-2xl lg:text-3xl">
-                <em>{sector.tagline}</em>
-              </p>
             </RevealItem>
           </Reveal>
         </Section>
       </section>
 
-      <Section className="border-t border-border py-24 md:py-32">
+      <Section className="border-t border-border py-16 md:py-20">
         <Reveal>
           <RevealItem>
-            <h2 className="text-xs uppercase tracking-widest text-muted">
-              The problem
-            </h2>
+            <p className="eyebrow">The problem</p>
           </RevealItem>
-          <div className="mt-10 space-y-6">
-            {sector.problems.map((line, i) => (
-              <Reveal key={line} delay={i * 0.1}>
-                <RevealItem>
-                  <p className="font-display text-2xl font-medium leading-snug md:text-3xl">
-                    {line}
-                  </p>
-                </RevealItem>
-              </Reveal>
+          <div className="mt-6 space-y-4">
+            {sector.problems.map((line) => (
+              <RevealItem key={line}>
+                <p className="font-display text-xl font-medium leading-snug md:text-2xl">
+                  {line}
+                </p>
+              </RevealItem>
             ))}
           </div>
         </Reveal>
       </Section>
 
-      <Section className="border-t border-border py-24 md:py-32">
+      <Section className="border-t border-border py-16 md:py-20">
         <Reveal>
           <RevealItem>
-            <h2 className="text-xs uppercase tracking-widest text-muted">
-              How we help
-            </h2>
+            <p className="eyebrow">How we help</p>
           </RevealItem>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
           {sector.solutions.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.08}>
+            <Reveal key={item.title} delay={i * 0.05}>
               <RevealItem>
                 <div
-                  className="card-lift h-full rounded-2xl border border-border p-8"
-                  style={{
-                    background: `linear-gradient(135deg, ${sector.accent}10, transparent)`,
-                  }}
+                  className="card-lift surface-card h-full overflow-hidden"
+                  style={{ borderTopColor: `${sector.accent}55`, borderTopWidth: 2 }}
                 >
-                  <h3 className="font-display text-xl font-medium md:text-2xl">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-muted">{item.description}</p>
+                  <div className="relative h-28 overflow-hidden border-b border-border">
+                    <Image
+                      src={image}
+                      alt=""
+                      fill
+                      className="object-cover opacity-80"
+                      sizes="300px"
+                      aria-hidden
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent" />
+                    <BrandMark size={20} className="absolute bottom-3 left-4 opacity-90" />
+                  </div>
+                  <div className="p-7">
+                    <h3 className="font-display text-lg font-medium md:text-xl">
+                      {item.title}
+                    </h3>
+                    <p className="prose-muted mt-2 text-sm">{item.description}</p>
+                  </div>
                 </div>
               </RevealItem>
             </Reveal>
@@ -98,26 +117,39 @@ export function SectorTemplate({ sector }: { sector: SectorData }) {
         </div>
       </Section>
 
-      <Section className="border-t border-border py-24 md:py-32">
-        <Reveal>
-          <RevealItem>
-            <h2 className="text-xs uppercase tracking-widest text-muted">
-              Proof
-            </h2>
-          </RevealItem>
-          <RevealItem className="mt-8">
-            <blockquote className="font-display max-w-3xl text-2xl font-medium leading-snug md:text-3xl">
-              {sector.proof}
-            </blockquote>
-          </RevealItem>
-        </Reveal>
-      </Section>
+      {showProof && (
+        <Section className="border-t border-border py-16 md:py-20">
+          <Reveal>
+            <RevealItem>
+              <p className="eyebrow">Results</p>
+            </RevealItem>
+            <RevealItem className="mt-5">
+              <blockquote
+                className="font-display max-w-3xl text-2xl font-medium leading-snug md:text-3xl"
+                style={{ color: sector.accent }}
+              >
+                {sector.proof}
+              </blockquote>
+            </RevealItem>
+          </Reveal>
+        </Section>
+      )}
 
-      <Section className="border-t border-border py-24 md:py-40">
+      <Section className="border-t border-border py-16 md:py-24">
         <Reveal>
-          <RevealItem>
-            <LinkButton href="/contact">Talk to us</LinkButton>
-          </RevealItem>
+          <div
+            className="surface-card flex flex-col items-start justify-between gap-6 p-8 md:flex-row md:items-center"
+            style={{ boxShadow: `inset 0 1px 0 0 ${sector.accent}33` }}
+          >
+            <RevealItem>
+              <p className="font-display text-xl font-medium md:text-2xl">
+                Ready to talk about {sector.name.toLowerCase()}?
+              </p>
+            </RevealItem>
+            <RevealItem>
+              <LinkButton href="/contact">Talk to us</LinkButton>
+            </RevealItem>
+          </div>
         </Reveal>
       </Section>
     </main>

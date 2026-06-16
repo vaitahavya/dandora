@@ -92,24 +92,25 @@ export const SECTORS = [
     href: "/sectors/d2c",
     accent: "#D4735C",
     motif: "commerce",
-    tagline: "The first sale is easy. The second one is the business.",
+    tagline: "The first sale is easy. Product marketing earns the second.",
     problems: [
       "Ad costs climb. Margins thin.",
-      "Loyalty is rare.",
-      "And in the feed, you look like everyone else.",
+      "Your product — physical or software — sounds like everything else in the feed.",
+      "You're spending on ads before the value is clear.",
     ],
     solutions: [
       {
-        title: "Be worth paying more for",
-        description: "Brand that stands out and sticks.",
+        title: "Product marketing that sells the value",
+        description:
+          "Positioning, messaging, and launch plans — for consumer products and software sold direct.",
       },
       {
         title: "Scale without bleeding margin",
-        description: "Performance marketing built on the numbers.",
+        description: "Performance marketing built on the numbers, not guesswork.",
       },
       {
         title: "Convert better",
-        description: "Storefronts and tech tuned for the sale.",
+        description: "Storefronts, landing pages, and product experience tuned for the sale.",
       },
       {
         title: "Keep them coming back",
@@ -120,32 +121,36 @@ export const SECTORS = [
   },
   {
     slug: "it-software",
-    name: "IT & Software",
+    name: "Software & IT Development",
     href: "/sectors/it-software",
     accent: "#5B7A9D",
     motif: "code",
-    tagline: "You built something brilliant. Nobody's heard of it.",
+    tagline: "One accountable team from wireframe to production — and beyond.",
     problems: [
-      "Great product. No pipeline.",
-      "You can sell the tech, but not the value.",
-      "Growth that runs on referrals and luck.",
+      "You're juggling vendors for frontend, backend, mobile, and ops.",
+      "The roadmap needs full-stack delivery — not another handoff.",
+      "Junior-only teams slow decisions. Leadership is missing when it matters.",
     ],
     solutions: [
       {
-        title: "Make the value obvious",
-        description: "Positioning that lands in five seconds.",
+        title: "Web applications",
+        description:
+          "Customer portals, SaaS platforms, dashboards, and internal tools — React, Angular, Next.js, Node.js.",
       },
       {
-        title: "Fill the pipeline",
-        description: "B2B demand gen that brings the right buyers.",
+        title: "Mobile apps",
+        description:
+          "Native and cross-platform apps for iOS and Android — React Native, Swift, Kotlin.",
       },
       {
-        title: "Earn enterprise trust",
-        description: "A brand that looks as serious as your product.",
+        title: "Desktop & enterprise",
+        description:
+          "Cross-platform desktop software plus Microsoft ecosystem — Power Platform, SharePoint, Power BI.",
       },
       {
-        title: "Scale go-to-market",
-        description: "Operations so growth doesn't outrun you.",
+        title: "Engagement models that fit",
+        description:
+          "Dedicated product teams, fixed-scope projects, or engineers embedded in yours.",
       },
     ],
     proof: "[FILL IN]",
@@ -157,6 +162,7 @@ export const SERVICES = [
     number: "01",
     title: "Strategy",
     headline: "Most businesses don't have a strategy problem. They have a clarity problem.",
+    imageKey: "strategy",
     tags: [
       "market entry",
       "growth planning",
@@ -169,18 +175,29 @@ export const SERVICES = [
   {
     number: "02",
     title: "Technology",
-    headline: "Bad tech slows everything down.",
-    tags: ["websites", "mobile apps", "automation", "AI solutions", "ERP & CRM"],
+    headline: "Products need one accountable team — not a stack of vendors.",
+    imageKey: "technology",
+    tags: [
+      "web applications",
+      "mobile apps",
+      "desktop software",
+      "React · Next.js · Node.js",
+      "Java · .NET",
+      "Power Platform · SharePoint",
+      "React Native · Swift · Kotlin",
+    ],
     payoff:
-      "We build what you actually need — connected directly to how your business makes money.",
-    snapshot: "Build what your business actually needs.",
+      "We design, build, and ship across web, mobile, and desktop — with senior leadership on every engagement.",
+    snapshot: "Design, build, and ship — full stack.",
   },
   {
     number: "03",
     title: "Marketing",
     headline: "The best product in the room still loses to someone louder.",
+    imageKey: "marketing",
     tags: [
       "brand",
+      "product marketing",
       "content",
       "SEO",
       "performance marketing",
@@ -188,13 +205,14 @@ export const SERVICES = [
       "PR",
       "social",
     ],
-    payoff: "Built to bring the right people in — and keep them.",
-    snapshot: "Bring the right people in. Keep them.",
+    payoff: "Product marketing, content, and performance — built to bring the right people in and keep them.",
+    snapshot: "Product marketing that brings people in.",
   },
   {
     number: "04",
     title: "Operations",
     headline: "Growth breaks things.",
+    imageKey: "operations",
     tags: [
       "lead generation",
       "project management",
@@ -203,15 +221,6 @@ export const SERVICES = [
     ],
     payoff: "Systems so your team can scale without things falling apart.",
     snapshot: "Scale without breaking.",
-  },
-  {
-    number: "05",
-    title: "Investment Advisory",
-    headline:
-      "When it's time to grow with capital behind you, the decisions get harder.",
-    tags: [],
-    payoff: "We help you plan, prioritise, and move with confidence.",
-    snapshot: "Grow with capital behind you.",
   },
 ] as const;
 

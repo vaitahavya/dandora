@@ -83,7 +83,7 @@ export function ContactForm() {
           id="sector"
           name="sector"
           required
-          className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-foreground outline-none transition-colors focus:border-accent"
+          className={fieldClass}
           defaultValue=""
         >
           <option value="" disabled>
@@ -106,7 +106,7 @@ export function ContactForm() {
           name="challenge"
           required
           rows={5}
-          className="w-full resize-none rounded-xl border border-border bg-surface px-4 py-3 text-foreground outline-none transition-colors focus:border-accent"
+          className={`${fieldClass} resize-none`}
         />
       </div>
 
@@ -119,13 +119,16 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full rounded-full bg-accent px-8 py-4 text-sm font-medium transition-all hover:scale-[1.01] disabled:opacity-60 sm:w-auto"
+        className="focus-ring w-full rounded-full bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#245a45] disabled:opacity-60 sm:w-auto"
       >
         {status === "loading" ? "Sending…" : "Start the conversation"}
       </button>
     </form>
   );
 }
+
+const fieldClass =
+  "focus-ring w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition-colors focus:border-accent";
 
 function Field({
   label,
@@ -148,7 +151,7 @@ function Field({
         name={name}
         type={type}
         required={required}
-        className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-foreground outline-none transition-colors focus:border-accent"
+        className={fieldClass}
       />
     </div>
   );

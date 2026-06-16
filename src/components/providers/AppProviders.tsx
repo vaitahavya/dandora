@@ -9,9 +9,14 @@ import { Footer } from "@/components/layout/Footer";
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
     <SmoothScroll>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <ScrollProgress />
       <Nav />
-      <PageTransition>{children}</PageTransition>
+      <PageTransition>
+        <div id="main-content">{children}</div>
+      </PageTransition>
       <Footer />
     </SmoothScroll>
   );

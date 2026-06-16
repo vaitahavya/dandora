@@ -16,7 +16,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`${bleed ? "" : "mx-auto max-w-7xl px-6 lg:px-10"} ${className}`}
+      className={`${bleed ? "" : "mx-auto max-w-6xl px-5 md:px-8"} ${className}`}
     >
       {children}
     </section>
