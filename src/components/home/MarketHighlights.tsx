@@ -15,8 +15,8 @@ export function MarketHighlights() {
         <RevealItem className="flex items-start gap-4">
           <BrandMark size={36} className="mt-1 hidden sm:block" />
           <div>
-            <p className="eyebrow">Market reality</p>
-            <h2 className="font-display mt-4 max-w-3xl text-3xl font-medium leading-snug tracking-tight md:text-4xl">
+            <p className="eyebrow eyebrow-accent">Market reality</p>
+            <h2 className="font-display mt-4 max-w-3xl text-3xl leading-snug tracking-tight md:text-4xl">
               {MARKET_HIGHLIGHTS.intro}
             </h2>
           </div>
@@ -29,10 +29,10 @@ export function MarketHighlights() {
             <RevealItem>
               <article className="surface-card h-full p-7 md:p-8">
                 <BrandMark size={24} className="mb-4 opacity-80" />
-                <p className="font-display text-4xl font-semibold tracking-tight text-accent md:text-5xl">
+                <p className="font-display-strong text-4xl md:text-5xl">
                   {stat.figure}
                 </p>
-                <p className="mt-3 text-sm font-medium leading-snug text-foreground md:text-base">
+                <p className="mt-3 text-sm font-semibold leading-snug text-foreground md:text-base">
                   {stat.label}
                 </p>
                 <p className="prose-muted mt-2 text-sm">{stat.context}</p>
@@ -73,10 +73,14 @@ export function MarketHighlights() {
                     />
                   </div>
                   <div className="p-6 md:p-7">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+                    <p
+                      className={`text-xs font-semibold uppercase tracking-widest ${
+                        i % 2 === 0 ? "text-accent" : "text-accent-secondary"
+                      }`}
+                    >
                       {item.title}
                     </p>
-                    <p className="mt-3 font-display text-lg font-medium leading-snug md:text-xl">
+                    <p className="mt-3 font-display text-lg leading-snug md:text-xl">
                       {item.highlight}
                     </p>
                     <p className="prose-muted mt-2 text-sm">{item.body}</p>
@@ -90,7 +94,7 @@ export function MarketHighlights() {
 
       <Reveal className="mt-14">
         <RevealItem>
-          <p className="max-w-2xl text-base leading-relaxed text-foreground/85 md:text-lg">
+          <p className="text-lead max-w-2xl text-base md:text-lg">
             {MARKET_HIGHLIGHTS.close}
           </p>
         </RevealItem>

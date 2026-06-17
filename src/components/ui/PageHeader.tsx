@@ -15,14 +15,14 @@ export function PageHeader({
 }: PageHeaderProps) {
   return (
     <div className="max-w-3xl">
-      {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+      {eyebrow && <p className="eyebrow eyebrow-accent">{eyebrow}</p>}
       <h1
-        className={`font-display text-4xl font-medium leading-[1.1] tracking-tight md:text-5xl lg:text-6xl ${eyebrow ? "mt-4" : ""}`}
+        className={`font-display text-4xl leading-[1.1] md:text-5xl lg:text-6xl ${eyebrow ? "mt-4" : ""}`}
       >
         {title}
       </h1>
       {description && (
-        <p className="prose-muted mt-6 max-w-2xl text-base md:text-lg">
+        <p className="text-lead mt-6 max-w-2xl text-base md:text-lg">
           {description}
         </p>
       )}

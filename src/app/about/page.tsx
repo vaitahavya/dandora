@@ -69,7 +69,7 @@ export default function AboutPage() {
               <RevealItem>
                 <div className="card-lift surface-card flex min-h-[160px] flex-col justify-end p-7">
                   <BrandMark size={24} className="mb-4 opacity-80" />
-                  <p className="font-display text-xl font-medium leading-snug md:text-2xl">
+                  <p className="font-display text-xl leading-snug md:text-2xl">
                     {value}
                   </p>
                 </div>

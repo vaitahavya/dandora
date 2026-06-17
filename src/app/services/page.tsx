@@ -57,7 +57,7 @@ export default function ServicesPage() {
                     </span>
                   </RevealItem>
                   <RevealItem className="mt-4">
-                    <h2 className="font-display text-2xl font-medium leading-snug md:text-3xl">
+                    <h2 className="font-display text-2xl leading-snug md:text-3xl">
                       {service.headline}
                     </h2>
                   </RevealItem>

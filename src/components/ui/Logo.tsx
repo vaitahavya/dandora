@@ -1,10 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-const LOGO = {
-  icon: "/logo-icon.svg",
-  primary: "/logo-primary.svg",
-} as const;
+import { BRAND } from "@/lib/brand";
 
 type LogoProps = {
   variant?: "primary" | "icon";
@@ -21,10 +17,10 @@ export function Logo({ variant = "primary", className = "" }: LogoProps) {
       aria-label="Dandora home"
     >
       <Image
-        src={isPrimary ? LOGO.primary : LOGO.icon}
+        src={isPrimary ? BRAND.primary : BRAND.icon}
         alt="Dandora"
-        width={isPrimary ? 200 : 32}
-        height={isPrimary ? 40 : 32}
+        width={isPrimary ? 220 : 40}
+        height={isPrimary ? 44 : 40}
         className={`shrink-0 ${isPrimary ? "h-8 w-auto md:h-9" : "h-8 w-8"}`}
         priority
       />
@@ -41,7 +37,7 @@ export function BrandMark({
 }) {
   return (
     <Image
-      src={LOGO.icon}
+      src={BRAND.icon}
       alt=""
       width={size}
       height={size}

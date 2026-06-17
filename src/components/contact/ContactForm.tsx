@@ -51,7 +51,7 @@ export function ContactForm() {
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent/20">
           <Check className="h-7 w-7 text-accent" />
         </div>
-        <p className="font-display mt-6 text-2xl font-medium">
+        <p className="font-display mt-6 text-2xl">
           Conversation started.
         </p>
         <p className="mt-2 text-muted">We&apos;ll be in touch shortly.</p>
@@ -119,7 +119,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="focus-ring w-full rounded-full bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#245a45] disabled:opacity-60 sm:w-auto"
+        className="focus-ring w-full rounded-full bg-accent px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-accent-hover disabled:opacity-60 sm:w-auto"
       >
         {status === "loading" ? "Sending…" : "Start the conversation"}
       </button>

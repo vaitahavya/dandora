@@ -5,7 +5,7 @@ export const SITE = {
   email: "hello@dandora.com",
   phone: "+91 [FILL IN]",
   location: "Hyderabad",
-  accent: "#2D5A47",
+  accent: "#4F46E5",
 } as const;
 
 export const NAV_LINKS = [
@@ -18,7 +18,7 @@ export const SECTORS = [
     slug: "real-estate",
     name: "Real Estate",
     href: "/sectors/real-estate",
-    accent: "#C4A574",
+    accent: "#4F46E5",
     motif: "architecture",
     tagline: "You're not selling square feet. You're selling a decision people make once in a lifetime.",
     problems: [
@@ -55,7 +55,7 @@ export const SECTORS = [
     slug: "healthcare",
     name: "Healthcare",
     href: "/sectors/healthcare",
-    accent: "#4A8B8B",
+    accent: "#06B6D4",
     motif: "pulse",
     tagline:
       "Patients decide with their gut, long before they read your credentials.",
@@ -90,7 +90,7 @@ export const SECTORS = [
     slug: "d2c",
     name: "D2C",
     href: "/sectors/d2c",
-    accent: "#D4735C",
+    accent: "#4F46E5",
     motif: "commerce",
     tagline: "The first sale is easy. Product marketing earns the second.",
     problems: [
@@ -123,7 +123,7 @@ export const SECTORS = [
     slug: "it-software",
     name: "Software & IT Development",
     href: "/sectors/it-software",
-    accent: "#5B7A9D",
+    accent: "#06B6D4",
     motif: "code",
     tagline: "One accountable team from wireframe to production — and beyond.",
     problems: [

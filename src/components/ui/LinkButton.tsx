@@ -15,14 +15,14 @@ export function LinkButton({
   className = "",
 }: LinkButtonProps) {
   const base =
-    "focus-ring inline-flex items-center justify-center gap-2 text-sm font-medium transition-all duration-300 group";
+    "focus-ring inline-flex items-center justify-center gap-2 text-sm transition-all duration-300 group";
 
   const variants = {
     primary:
-      "rounded-full bg-accent px-6 py-3 text-white hover:bg-[#245a45]",
+      "rounded-full bg-accent px-6 py-3 font-semibold text-white hover:bg-accent-hover",
     secondary:
-      "rounded-full border border-border bg-surface px-6 py-3 text-foreground shadow-sm hover:border-foreground/20 hover:bg-surface-elevated",
-    ghost: "text-foreground link-underline py-1",
+      "rounded-full border border-border bg-surface px-6 py-3 font-medium text-foreground shadow-sm hover:border-accent/25 hover:bg-accent-muted",
+    ghost: "font-semibold text-accent link-underline py-1 hover:text-accent-hover",
   };
 
   return (

@@ -19,7 +19,7 @@ export function ManifestoStrip() {
             <p className="eyebrow">Who we are</p>
           </RevealItem>
           <RevealItem className="mt-4">
-            <blockquote className="font-display text-3xl font-medium leading-snug tracking-tight md:text-4xl">
+            <blockquote className="font-display-light text-3xl leading-snug tracking-tight md:text-4xl">
               We&apos;re not a vendor. We&apos;re the people in the room with
               you.
             </blockquote>
@@ -68,7 +68,7 @@ export function ServicesSnapshot() {
           <p className="eyebrow">What we do</p>
         </RevealItem>
         <RevealItem className="mt-4">
-          <h2 className="font-display max-w-2xl text-3xl font-medium leading-snug tracking-tight md:text-4xl">
+          <h2 className="font-display max-w-2xl text-3xl leading-snug tracking-tight md:text-4xl">
             Strategy. Tech. Marketing. Operations. All of it, if you need it.
           </h2>
         </RevealItem>
@@ -94,8 +94,8 @@ export function ServicesSnapshot() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-6 md:p-7">
-                  <span className="eyebrow text-foreground/70">{service.number}</span>
-                  <h3 className="font-display mt-2 text-xl font-medium">
+                  <span className="eyebrow text-accent-secondary">{service.number}</span>
+                  <h3 className="font-display mt-2 text-xl">
                     {service.title}
                   </h3>
                   <p className="prose-muted mt-2 text-sm">{service.snapshot}</p>
@@ -125,7 +125,7 @@ export function SectorsGrid() {
           <p className="eyebrow">Sectors</p>
         </RevealItem>
         <RevealItem className="mt-4">
-          <h2 className="font-display max-w-xl text-3xl font-medium tracking-tight md:text-4xl">
+          <h2 className="font-display max-w-xl text-3xl tracking-tight md:text-4xl">
             We don&apos;t do generic. We know your world.
           </h2>
         </RevealItem>
@@ -158,7 +158,7 @@ export function SectorsGrid() {
                     className="mb-2 inline-block h-0.5 w-8 rounded-full"
                     style={{ backgroundColor: sector.accent }}
                   />
-                  <h3 className="font-display text-2xl font-medium text-foreground md:text-[1.65rem]">
+                  <h3 className="font-display text-2xl text-foreground md:text-[1.65rem]">
                     {sector.name}
                   </h3>
                   <span className="mt-3 inline-flex items-center gap-2 text-sm text-muted transition-colors group-hover:text-foreground">
@@ -185,7 +185,7 @@ export function ProcessSection() {
             <p className="eyebrow">Our approach</p>
           </RevealItem>
           <RevealItem className="mt-4">
-            <h2 className="font-display text-3xl font-medium tracking-tight md:text-4xl">
+            <h2 className="font-display text-3xl tracking-tight md:text-4xl">
               Before we advise, we listen.
             </h2>
           </RevealItem>
@@ -236,7 +236,7 @@ export function CloseSection() {
               <RevealItem>
                 <BrandMark size={32} />
                 <p className="eyebrow mt-5">Next step</p>
-                <h2 className="font-display mt-3 text-3xl font-medium tracking-tight md:text-4xl">
+                <h2 className="font-display mt-3 text-3xl tracking-tight md:text-4xl">
                   Ready when you are.
                 </h2>
                 <p className="prose-muted mt-3 max-w-md text-sm md:text-base">

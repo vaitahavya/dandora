@@ -50,7 +50,7 @@ export const MARKET_HIGHLIGHTS = {
 } as const;
 
 export const HERO_COPY = {
-  eyebrow: "Growth consulting · Hyderabad",
+  eyebrow: "Growth consulting · Global",
   headline: {
     before: "Any problem. One ",
     highlight: "Solution",

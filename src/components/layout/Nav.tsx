@@ -11,8 +11,8 @@ import { SECTORS } from "@/lib/constants";
 function navLinkClass(active: boolean) {
   return `link-underline focus-ring rounded-sm text-sm transition-colors ${
     active
-      ? "text-foreground"
-      : "text-muted hover:text-foreground"
+      ? "font-semibold text-accent"
+      : "font-medium text-muted hover:text-foreground"
   }`;
 }
 
@@ -115,8 +115,8 @@ export function Nav() {
                         href={sector.href}
                         className={`focus-ring block rounded-lg px-3.5 py-2.5 text-sm transition-colors ${
                           pathname === sector.href
-                            ? "bg-accent/10 text-accent"
-                            : "text-muted hover:bg-surface-elevated hover:text-foreground"
+                            ? "bg-accent/10 font-semibold text-accent"
+                            : "font-medium text-muted hover:bg-surface-elevated hover:text-foreground"
                         }`}
                       >
                         {sector.name}
@@ -135,8 +135,8 @@ export function Nav() {
               href="/contact"
               className={`focus-ring rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
                 isContact
-                  ? "bg-[#245a45] text-white"
-                  : "bg-accent text-white hover:bg-[#245a45]"
+                  ? "bg-accent-hover text-white"
+                  : "bg-accent text-white hover:bg-accent-hover"
               }`}
             >
               Talk to us
@@ -175,7 +175,7 @@ export function Nav() {
             </div>
 
             <nav className="flex flex-col px-5 pt-6">
-              <Link href="/services" className="font-display border-b border-border py-4 text-3xl font-medium">
+              <Link href="/services" className="font-display border-b border-border py-4 text-3xl">
                 Services
               </Link>
               <p className="eyebrow mt-6 mb-2">Sectors</p>
@@ -188,12 +188,12 @@ export function Nav() {
                   {sector.name}
                 </Link>
               ))}
-              <Link href="/about" className="font-display mt-4 border-t border-border py-4 text-3xl font-medium">
+              <Link href="/about" className="font-display mt-4 border-t border-border py-4 text-3xl">
                 About
               </Link>
               <Link
                 href="/contact"
-                className="focus-ring mt-8 inline-flex w-fit rounded-full bg-accent px-7 py-3.5 text-base font-medium"
+                className="focus-ring mt-8 inline-flex w-fit rounded-full bg-accent px-7 py-3.5 text-base font-medium text-white hover:bg-accent-hover"
               >
                 Talk to us
               </Link>

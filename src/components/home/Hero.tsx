@@ -21,10 +21,10 @@ export function Hero() {
       <div className="relative z-10 mx-auto flex min-h-svh max-w-6xl flex-col justify-center px-5 pb-20 pt-28 md:px-8 md:pb-24">
         <div className="flex items-center gap-3">
           <BrandMark size={36} className="opacity-95" />
-          <p className="eyebrow">{HERO_COPY.eyebrow}</p>
+          <p className="eyebrow eyebrow-accent">{HERO_COPY.eyebrow}</p>
         </div>
 
-        <h1 className="font-display mt-5 max-w-4xl text-[2.35rem] font-medium leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-[3.75rem]">
+        <h1 className="font-display mt-5 max-w-4xl text-[2.35rem] leading-[1.05] sm:text-5xl md:text-6xl lg:text-[3.75rem]">
           {HERO_COPY.headline.before}
           <em className="highlight-word not-italic">
             {HERO_COPY.headline.highlight}
@@ -32,7 +32,7 @@ export function Hero() {
           {HERO_COPY.headline.after}
         </h1>
 
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
+        <p className="text-lead mt-6 max-w-xl text-base md:text-lg">
           {HERO_COPY.subhead}
         </p>
         <p className="prose-muted mt-3 max-w-lg text-sm md:text-base">

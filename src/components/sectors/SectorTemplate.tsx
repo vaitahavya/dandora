@@ -3,7 +3,7 @@ import { Section } from "@/components/ui/Section";
 import { Reveal, RevealItem } from "@/components/ui/Reveal";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { BrandMark } from "@/components/ui/Logo";
-import { IMAGES } from "@/lib/images";
+import { getSectorSolutionImage, IMAGES } from "@/lib/images";
 
 type SectorData = {
   slug: string;
@@ -52,7 +52,7 @@ export function SectorTemplate({ sector }: { sector: SectorData }) {
             </RevealItem>
             <RevealItem className="mt-4">
               <BrandMark size={32} className="mb-4 opacity-90" />
-              <h1 className="font-display max-w-3xl text-3xl font-medium leading-snug tracking-tight md:text-4xl lg:text-5xl">
+              <h1 className="font-display max-w-3xl text-3xl leading-snug tracking-tight md:text-4xl lg:text-5xl">
                 {sector.tagline}
               </h1>
             </RevealItem>
@@ -68,7 +68,7 @@ export function SectorTemplate({ sector }: { sector: SectorData }) {
           <div className="mt-6 space-y-4">
             {sector.problems.map((line) => (
               <RevealItem key={line}>
-                <p className="font-display text-xl font-medium leading-snug md:text-2xl">
+                <p className="font-display-light text-xl leading-snug text-foreground/90 md:text-2xl">
                   {line}
                 </p>
               </RevealItem>
@@ -92,20 +92,19 @@ export function SectorTemplate({ sector }: { sector: SectorData }) {
                   className="card-lift surface-card h-full overflow-hidden"
                   style={{ borderTopColor: `${sector.accent}55`, borderTopWidth: 2 }}
                 >
-                  <div className="relative h-28 overflow-hidden border-b border-border">
+                  <div className="relative h-36 overflow-hidden border-b border-border">
                     <Image
-                      src={image}
-                      alt=""
+                      src={getSectorSolutionImage(sector.slug, i, image)}
+                      alt={item.title}
                       fill
-                      className="object-cover opacity-80"
-                      sizes="300px"
-                      aria-hidden
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent" />
                     <BrandMark size={20} className="absolute bottom-3 left-4 opacity-90" />
                   </div>
                   <div className="p-7">
-                    <h3 className="font-display text-lg font-medium md:text-xl">
+                    <h3 className="font-display text-lg md:text-xl">
                       {item.title}
                     </h3>
                     <p className="prose-muted mt-2 text-sm">{item.description}</p>
@@ -125,7 +124,7 @@ export function SectorTemplate({ sector }: { sector: SectorData }) {
             </RevealItem>
             <RevealItem className="mt-5">
               <blockquote
-                className="font-display max-w-3xl text-2xl font-medium leading-snug md:text-3xl"
+                className="font-display-strong max-w-3xl text-2xl leading-snug md:text-3xl"
                 style={{ color: sector.accent }}
               >
                 {sector.proof}
@@ -142,7 +141,7 @@ export function SectorTemplate({ sector }: { sector: SectorData }) {
             style={{ boxShadow: `inset 0 1px 0 0 ${sector.accent}33` }}
           >
             <RevealItem>
-              <p className="font-display text-xl font-medium md:text-2xl">
+              <p className="font-display text-xl md:text-2xl">
                 Ready to talk about {sector.name.toLowerCase()}?
               </p>
             </RevealItem>

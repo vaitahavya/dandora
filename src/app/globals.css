@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf9f7;
-  --foreground: #141413;
-  --muted: #6b6963;
-  --accent: #2d5a47;
-  --accent-soft: rgba(45, 90, 71, 0.14);
-  --accent-muted: #e8f0eb;
+  --background: #ffffff;
+  --foreground: #111827;
+  --muted: #9ca3af;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-secondary: #06b6d4;
+  --accent-soft: rgba(79, 70, 229, 0.12);
+  --accent-secondary-soft: rgba(6, 182, 212, 0.14);
+  --accent-muted: #eef2ff;
   --surface: #ffffff;
-  --surface-elevated: #f3f2ee;
-  --border: rgba(20, 20, 19, 0.09);
+  --surface-elevated: #f8fafc;
+  --border: rgba(17, 24, 39, 0.09);
   --radius: 1rem;
 }
 
@@ -18,11 +21,13 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-secondary: var(--accent-secondary);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
   --color-border: var(--border);
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-sora);
+  --font-sans: var(--font-poppins);
+  --font-display: var(--font-poppins);
 }
 
 * {
@@ -41,7 +46,8 @@ html.lenis body {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-poppins), Arial, system-ui, sans-serif;
+  font-weight: 400;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -51,8 +57,40 @@ body {
   color: var(--foreground);
 }
 
+/* ── Poppins type scale (brand font only) ── */
+
 .font-display {
-  font-family: var(--font-sora), system-ui, sans-serif;
+  font-family: var(--font-poppins), Arial, system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+}
+
+.font-display-strong {
+  font-family: var(--font-poppins), Arial, system-ui, sans-serif;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.03em;
+}
+
+.font-display-light {
+  font-family: var(--font-poppins), Arial, system-ui, sans-serif;
+  font-weight: 400;
+  color: var(--foreground);
+  letter-spacing: -0.015em;
+}
+
+.font-display-cyan {
+  font-family: var(--font-poppins), Arial, system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--accent-secondary);
+  letter-spacing: -0.02em;
+}
+
+.text-lead {
+  font-weight: 500;
+  color: color-mix(in srgb, var(--foreground) 82%, transparent);
+  line-height: 1.7;
 }
 
 /* Single-word display highlight — use sparingly (once per headline) */
@@ -60,6 +98,7 @@ body {
   position: relative;
   display: inline-block;
   color: var(--accent);
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -70,21 +109,28 @@ body {
   right: -0.06em;
   bottom: 0.06em;
   height: 0.38em;
-  background: var(--accent-soft);
+  background: var(--accent-secondary-soft);
   border-radius: 2px;
   z-index: -1;
 }
 
 .eyebrow {
+  font-family: var(--font-poppins), Arial, system-ui, sans-serif;
   font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
+.eyebrow-accent {
+  color: var(--accent-secondary);
+  font-weight: 600;
+}
+
 .prose-muted {
   color: var(--muted);
+  font-weight: 400;
   line-height: 1.75;
 }
 
@@ -92,7 +138,7 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: 0 1px 2px rgba(20, 20, 19, 0.04);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
 }
 
 .focus-ring:focus-visible {
@@ -132,8 +178,8 @@ body {
 
 .card-lift:hover {
   transform: translateY(-3px);
-  border-color: rgba(20, 20, 19, 0.14);
-  box-shadow: 0 12px 32px rgba(20, 20, 19, 0.08);
+  border-color: rgba(17, 24, 39, 0.14);
+  box-shadow: 0 12px 32px rgba(17, 24, 39, 0.08);
 }
 
 .tag-pill {
@@ -143,6 +189,7 @@ body {
   border: 1px solid var(--border);
   padding: 0.375rem 0.875rem;
   font-size: 0.8125rem;
+  font-weight: 500;
   color: var(--muted);
   background: var(--surface-elevated);
 }
@@ -157,7 +204,7 @@ body {
   color: #fff;
   padding: 0.625rem 1rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   transition: top 0.2s ease;
 }
 

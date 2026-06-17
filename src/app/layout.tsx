@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { AppProviders } from "@/components/providers/AppProviders";
+import { BRAND } from "@/lib/brand";
 import { SITE } from "@/lib/constants";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const sora = Sora({
-  variable: "--font-sora",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -43,14 +39,8 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   icons: {
-    icon: [
-      { url: "/logo-icon.svg", type: "image/svg+xml" },
-      { url: "/logo-icon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/logo-icon-128.png", sizes: "128x128", type: "image/png" },
-    ],
-    apple: [
-      { url: "/logo-icon-256.png", sizes: "256x256", type: "image/png" },
-    ],
+    icon: [{ url: BRAND.icon, type: "image/svg+xml" }],
+    apple: [{ url: BRAND.icon, type: "image/svg+xml" }],
   },
 };
 
@@ -75,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable} h-full`}>
+    <html lang="en" className={`${poppins.variable} h-full`}>
       <head>
         <script
           type="application/ld+json"
