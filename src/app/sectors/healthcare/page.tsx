@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { SectorTemplate } from "@/components/sectors/SectorTemplate";
-import { SECTORS } from "@/lib/constants";
-
-const sector = SECTORS.find((s) => s.slug === "healthcare")!;
+import { GrowthSectorPage } from "@/components/sectors/GrowthSectorPage";
+import { HEALTHCARE } from "@/lib/sectors/healthcare";
 
 export const metadata: Metadata = {
-  title: `Growth Consulting for ${sector.name}`,
-  description: sector.tagline,
+  title: "Healthcare Growth — Hospitals, Clinics & Specialty Practices",
+  description: HEALTHCARE.hero.sub,
 };
 
 export default function HealthcarePage() {
-  return <SectorTemplate sector={sector} />;
+  return <GrowthSectorPage content={HEALTHCARE} />;
 }

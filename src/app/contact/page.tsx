@@ -70,6 +70,28 @@ export default function ContactPage() {
                 </div>
                 <div className="surface-card p-5">
                   <BrandMark size={20} className="mb-3 opacity-80" />
+                  <p className="eyebrow">Phone</p>
+                  <a
+                    href={`tel:${SITE.phone.replace(/\s/g, "")}`}
+                    className="focus-ring link-underline mt-2 inline-block text-foreground"
+                  >
+                    {SITE.phone}
+                  </a>
+                </div>
+                <div className="surface-card p-5">
+                  <BrandMark size={20} className="mb-3 opacity-80" />
+                  <p className="eyebrow">Website</p>
+                  <a
+                    href={SITE.url}
+                    className="focus-ring link-underline mt-2 inline-block text-foreground"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    dandora.online
+                  </a>
+                </div>
+                <div className="surface-card p-5">
+                  <BrandMark size={20} className="mb-3 opacity-80" />
                   <p className="eyebrow">Location</p>
                   <p className="mt-2 text-foreground">{SITE.location}, India</p>
                 </div>

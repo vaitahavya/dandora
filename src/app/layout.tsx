@@ -5,6 +5,7 @@ import { BRAND } from "@/lib/brand";
 import { SITE } from "@/lib/constants";
 import "lenis/dist/lenis.css";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -16,18 +17,18 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Growth Consulting`,
+    default: `${SITE.name} — Growth, engineered.`,
     template: `%s | ${SITE.name}`,
   },
   description:
-    "A growth consulting firm for businesses ready to move. Strategy, technology, marketing, and operations — we're the people in the room with you.",
+    "Wherever you are today, there's a next step towards growth. Dandora standardises how your business grows — leads, pitch, brand, follow-through — so the next move is repeatable, not accidental.",
   openGraph: {
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
-    title: `${SITE.name} — Growth Consulting`,
+    title: `${SITE.name} — Growth, engineered.`,
     description:
-      "We're not a vendor. We're the people in the room with you.",
+      "We help you take the next step towards growth — on purpose, not by accident.",
     images: [
       {
         url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
@@ -65,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} h-full`}>
+    <html lang="en" className={cn("h-full", poppins.variable, "font-sans")}>
       <head>
         <script
           type="application/ld+json"

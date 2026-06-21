@@ -4,11 +4,22 @@ import { BRAND } from "@/lib/brand";
 
 type LogoProps = {
   variant?: "primary" | "icon";
+  /** When true, use the reversed (light) wordmark for dark backgrounds. */
+  onDark?: boolean;
   className?: string;
 };
 
-export function Logo({ variant = "primary", className = "" }: LogoProps) {
+export function Logo({
+  variant = "primary",
+  onDark = false,
+  className = "",
+}: LogoProps) {
   const isPrimary = variant === "primary";
+  const src = isPrimary
+    ? onDark
+      ? BRAND.reversed
+      : BRAND.primary
+    : BRAND.icon;
 
   return (
     <Link
@@ -17,7 +28,7 @@ export function Logo({ variant = "primary", className = "" }: LogoProps) {
       aria-label="Dandora home"
     >
       <Image
-        src={isPrimary ? BRAND.primary : BRAND.icon}
+        src={src}
         alt="Dandora"
         width={isPrimary ? 220 : 40}
         height={isPrimary ? 44 : 40}

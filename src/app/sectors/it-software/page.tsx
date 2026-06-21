@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { SectorTemplate } from "@/components/sectors/SectorTemplate";
-import { SECTORS } from "@/lib/constants";
-
-const sector = SECTORS.find((s) => s.slug === "it-software")!;
+import { SoftwareEngineeringPage } from "@/components/sectors/SoftwareEngineeringPage";
+import { IT_SOFTWARE } from "@/lib/sectors/it-software";
 
 export const metadata: Metadata = {
-  title: sector.name,
-  description: sector.tagline,
+  title: "Software Product Engineering Partner",
+  description: IT_SOFTWARE.hero.sub,
 };
 
 export default function ITSoftwarePage() {
-  return <SectorTemplate sector={sector} />;
+  return <SoftwareEngineeringPage />;
 }

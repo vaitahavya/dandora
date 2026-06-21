@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendMail } from "@/lib/mail";
 
 export async function POST(request: Request) {
   try {
@@ -12,15 +13,21 @@ export async function POST(request: Request) {
       );
     }
 
-    // [FILL IN] Wire to Formspree, Resend, or your CRM endpoint.
-    // Example: await fetch(process.env.FORMSPREE_ENDPOINT, { method: 'POST', body: ... })
-    console.log("Contact form submission:", {
-      name,
-      email,
-      phone,
-      company,
-      sector,
+    const lines = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      phone ? `Phone: ${phone}` : null,
+      company ? `Company: ${company}` : null,
+      `Sector: ${sector}`,
+      "",
+      "Message / challenge:",
       challenge,
+    ].filter(Boolean);
+
+    await sendMail({
+      subject: `New enquiry — ${name}${sector ? ` (${sector})` : ""}`,
+      text: lines.join("\n"),
+      replyTo: typeof email === "string" ? email : undefined,
     });
 
     return NextResponse.json({ success: true });

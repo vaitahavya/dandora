@@ -1,206 +1,194 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
-import { SECTORS } from "@/lib/constants";
-
-function navLinkClass(active: boolean) {
-  return `link-underline focus-ring rounded-sm text-sm transition-colors ${
-    active
-      ? "font-semibold text-accent"
-      : "font-medium text-muted hover:text-foreground"
-  }`;
-}
+import { SECTORS } from "@/lib/home";
+import { useQuestionnaire } from "@/components/questionnaire/QuestionnaireProvider";
 
 export function Nav() {
-  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [sectorsOpen, setSectorsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const isServices = pathname === "/services";
-  const isAbout = pathname === "/about";
-  const isContact = pathname === "/contact";
-  const isSector = pathname.startsWith("/sectors/");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [heroDark, setHeroDark] = useState(false);
+  const { open } = useQuestionnaire();
+  const sectorsRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Detect whether the page's hero is dark (so the nav is transparent over a
+  // dark surface) and flip the logo + controls to their light variants.
   useEffect(() => {
-    setMobileOpen(false);
-    setSectorsOpen(false);
+    const check = () =>
+      setHeroDark(!!document.querySelector('[data-hero-dark="true"]'));
+    // Run after the new route's DOM has painted.
+    const raf = requestAnimationFrame(check);
+    return () => cancelAnimationFrame(raf);
   }, [pathname]);
 
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileOpen]);
+  // The nav floats over a dark hero only while transparent (top, no mobile panel).
+  const onDark = heroDark && !scrolled && !mobileOpen;
 
+  // Close menus on outside click / Escape.
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSectorsOpen(false);
+    const onClick = (e: MouseEvent) => {
+      if (
+        sectorsRef.current &&
+        !sectorsRef.current.contains(e.target as Node)
+      ) {
+        setSectorsOpen(false);
+      }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSectorsOpen(false);
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
   }, []);
 
   return (
-    <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "border-b border-border bg-surface/95 shadow-sm backdrop-blur-md"
-            : "bg-surface/70 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none"
-        }`}
+    <header
+      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+        scrolled || mobileOpen
+          ? "border-b border-border bg-surface/80 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      }`}
+    >
+      <nav
+        className="mx-auto flex max-w-[1200px] items-center justify-between px-5 py-4 md:px-8"
+        aria-label="Main navigation"
       >
-        <nav
-          className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8"
-          aria-label="Main navigation"
-        >
-          <Logo />
+        <Logo onDark={onDark} />
 
-          <div className="hidden items-center gap-8 lg:flex">
-            <Link href="/services" className={navLinkClass(isServices)}>
-              Services
-            </Link>
-
-            <div
-              ref={dropdownRef}
-              className="relative"
-              onMouseEnter={() => setSectorsOpen(true)}
-              onMouseLeave={() => setSectorsOpen(false)}
-            >
-              <button
-                type="button"
-                id="sectors-trigger"
-                aria-expanded={sectorsOpen}
-                aria-haspopup="true"
-                aria-controls="sectors-menu"
-                onClick={() => setSectorsOpen((v) => !v)}
-                className={`focus-ring flex items-center gap-1 rounded-sm ${navLinkClass(isSector)}`}
-              >
-                Sectors
-                <ChevronDown
-                  className={`h-3.5 w-3.5 transition-transform ${sectorsOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-
-              <AnimatePresence>
-                {sectorsOpen && (
-                  <motion.div
-                    id="sectors-menu"
-                    role="menu"
-                    aria-labelledby="sectors-trigger"
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    transition={{ duration: 0.18 }}
-                    className="absolute top-full left-1/2 mt-2 w-52 -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-surface p-1.5 shadow-lg"
-                  >
-                    {SECTORS.map((sector) => (
-                      <Link
-                        key={sector.slug}
-                        role="menuitem"
-                        href={sector.href}
-                        className={`focus-ring block rounded-lg px-3.5 py-2.5 text-sm transition-colors ${
-                          pathname === sector.href
-                            ? "bg-accent/10 font-semibold text-accent"
-                            : "font-medium text-muted hover:bg-surface-elevated hover:text-foreground"
-                        }`}
-                      >
-                        {sector.name}
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <Link href="/about" className={navLinkClass(isAbout)}>
-              About
-            </Link>
-
-            <Link
-              href="/contact"
-              className={`focus-ring rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
-                isContact
-                  ? "bg-accent-hover text-white"
-                  : "bg-accent text-white hover:bg-accent-hover"
+        {/* Desktop nav */}
+        <div className="hidden items-center gap-1 md:flex">
+          <div ref={sectorsRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setSectorsOpen((v) => !v)}
+              aria-expanded={sectorsOpen}
+              aria-haspopup="true"
+              className={`focus-ring inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium transition-colors md:text-base ${
+                onDark
+                  ? "text-white hover:bg-white/10"
+                  : "text-foreground hover:bg-foreground/5"
               }`}
             >
-              Talk to us
-            </Link>
+              Sectors
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-300 ${
+                  sectorsOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {sectorsOpen && (
+              <div className="absolute right-0 mt-2 w-[340px] overflow-hidden rounded-2xl border border-border bg-surface/95 p-2 shadow-[var(--shadow-glass)] backdrop-blur-xl">
+                {SECTORS.cards.map((sector) => (
+                  <Link
+                    key={sector.id}
+                    href={sector.href}
+                    onClick={() => setSectorsOpen(false)}
+                    className="focus-ring group block rounded-xl px-3 py-2.5 transition-colors hover:bg-foreground/5"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="text-[0.95rem] font-semibold text-foreground">
+                        {sector.name}
+                      </span>
+                      {"tag" in sector && sector.tag && (
+                        <span className="rounded-full border border-accent-secondary/40 px-1.5 py-0.5 text-[0.65rem] font-semibold tracking-wide text-accent-secondary">
+                          {sector.tag}
+                        </span>
+                      )}
+                    </span>
+                    <span className="mt-0.5 line-clamp-1 block text-xs text-muted">
+                      {sector.line}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           <button
             type="button"
-            className="focus-ring flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
+            onClick={() => open()}
+            className={`btn px-5 py-2.5 text-sm md:text-base ${
+              onDark ? "btn-ghost-dark" : "btn-ghost"
+            }`}
           >
-            <Menu className="h-4 w-4" />
+            Start the conversation
           </button>
-        </nav>
-      </header>
+        </div>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] bg-background lg:hidden"
-          >
-            <div className="flex items-center justify-between border-b border-border px-5 py-4">
-              <Logo />
-              <button
-                type="button"
-                onClick={() => setMobileOpen(false)}
-                className="focus-ring flex h-9 w-9 items-center justify-center rounded-full border border-border"
-                aria-label="Close menu"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
+        {/* Mobile trigger */}
+        <button
+          type="button"
+          onClick={() => setMobileOpen((v) => !v)}
+          aria-expanded={mobileOpen}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          className={`focus-ring flex h-10 w-10 items-center justify-center rounded-full border md:hidden ${
+            onDark
+              ? "border-white/30 text-white"
+              : "border-border text-foreground"
+          }`}
+        >
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </nav>
 
-            <nav className="flex flex-col px-5 pt-6">
-              <Link href="/services" className="font-display border-b border-border py-4 text-3xl">
-                Services
-              </Link>
-              <p className="eyebrow mt-6 mb-2">Sectors</p>
-              {SECTORS.map((sector) => (
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="border-t border-border bg-surface/95 backdrop-blur-xl md:hidden">
+          <div className="mx-auto max-w-[1200px] px-5 py-4">
+            <p className="eyebrow">Sectors</p>
+            <div className="mt-3 space-y-1">
+              {SECTORS.cards.map((sector) => (
                 <Link
-                  key={sector.slug}
+                  key={sector.id}
                   href={sector.href}
-                  className="font-display py-2.5 text-xl text-muted"
+                  onClick={() => setMobileOpen(false)}
+                  className="focus-ring flex items-center gap-2 rounded-xl px-3 py-3 transition-colors hover:bg-foreground/5"
                 >
-                  {sector.name}
+                  <span className="text-[1rem] font-semibold text-foreground">
+                    {sector.name}
+                  </span>
+                  {"tag" in sector && sector.tag && (
+                    <span className="rounded-full border border-accent-secondary/40 px-1.5 py-0.5 text-[0.65rem] font-semibold tracking-wide text-accent-secondary">
+                      {sector.tag}
+                    </span>
+                  )}
                 </Link>
               ))}
-              <Link href="/about" className="font-display mt-4 border-t border-border py-4 text-3xl">
-                About
-              </Link>
-              <Link
-                href="/contact"
-                className="focus-ring mt-8 inline-flex w-fit rounded-full bg-accent px-7 py-3.5 text-base font-medium text-white hover:bg-accent-hover"
-              >
-                Talk to us
-              </Link>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setMobileOpen(false);
+                open();
+              }}
+              className="btn btn-primary mt-4 w-full"
+            >
+              Start the conversation
+            </button>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }

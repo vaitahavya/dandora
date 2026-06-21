@@ -23,8 +23,8 @@ export const MARKET_HIGHLIGHTS = {
     {
       slug: "real-estate",
       title: "Real estate",
-      highlight: "Inventory moves slower. Buyers research longer.",
-      body: "Launches that looked alike stopped working. The winners sell a decision — not square feet.",
+      highlight: "90,000+ homes sit unsold. The ones that move are the best seen.",
+      body: "Today's buyer lives in the home and decides online first. Inventory pitched to investors misses the end-user who actually shows up.",
     },
     {
       slug: "healthcare",

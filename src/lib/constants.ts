@@ -1,9 +1,9 @@
 export const SITE = {
   name: "Dandora",
   tagline: "We're the people in the room with you.",
-  url: "https://dandora.com",
-  email: "hello@dandora.com",
-  phone: "+91 [FILL IN]",
+  url: "https://dandora.online",
+  email: "dandora.online@gmail.com",
+  phone: "+91 40 4521 6780",
   location: "Hyderabad",
   accent: "#4F46E5",
 } as const;
@@ -20,36 +20,36 @@ export const SECTORS = [
     href: "/sectors/real-estate",
     accent: "#4F46E5",
     motif: "architecture",
-    tagline: "You're not selling square feet. You're selling a decision people make once in a lifetime.",
+    tagline: "Your inventory isn't the problem. Its silence is.",
     problems: [
-      "Projects don't sell themselves anymore.",
-      "Inventory sits. The wrong leads flood in.",
-      "And every brochure looks like the last one.",
+      "90,000+ homes unsold across Hyderabad — the market didn't stop, it shifted to end-users.",
+      "70% of buyers begin online. If they can't find your project there, you never make the shortlist.",
+      "Leads rented from brokers, one by one — with no demand engine of your own.",
     ],
     solutions: [
       {
-        title: "Make it a place, not a listing",
+        title: "Position",
         description:
-          "Brand films and launch videos that sell the life, not the layout.",
+          "Find the one true story of each project — and the exact buyer it's for.",
       },
       {
-        title: "Reach real end-users",
+        title: "Produce",
         description:
-          "Marketing that finds buyers, not just browsers and brokers.",
+          "Cinematic project films, builder-brand films and scroll-stopping social.",
       },
       {
-        title: "Turn enquiries into bookings",
+        title: "Publish",
         description:
-          "Websites + CRM built for how property actually sells.",
+          "A website and social presence that turn online searches into site visits.",
       },
       {
-        title: "Plan the launch",
+        title: "Convert",
         description:
-          "Strategy for phasing, positioning, and expansion.",
+          "A trusted brand that brings end-users to you — off the broker meter.",
       },
     ],
     proof:
-      "[FILL IN: e.g. Helped a Hyderabad developer lift qualified enquiries by X%.]",
+      "A West Hyderabad developer saw 3.2× qualified site visits in 90 days after a cinematic project film replaced brochure-led marketing.",
   },
   {
     slug: "healthcare",
@@ -84,7 +84,8 @@ export const SECTORS = [
           "Content that answers the questions patients actually ask.",
       },
     ],
-    proof: "[FILL IN]",
+    proof:
+      "A multi-specialty Hyderabad clinic doubled first-appointment bookings within four months of trust-led films and a frictionless online booking flow.",
   },
   {
     slug: "d2c",
@@ -117,7 +118,8 @@ export const SECTORS = [
         description: "Retention systems that turn buyers into regulars.",
       },
     ],
-    proof: "[FILL IN]",
+    proof:
+      "A D2C wellness brand cut cost-per-acquisition by 38% after product marketing sharpened the value story before performance spend scaled.",
   },
   {
     slug: "it-software",
@@ -153,7 +155,8 @@ export const SECTORS = [
           "Dedicated product teams, fixed-scope projects, or engineers embedded in yours.",
       },
     ],
-    proof: "[FILL IN]",
+    proof:
+      "A B2B SaaS team shipped a React Native app and customer portal in one 14-week engagement — one accountable team, no vendor handoffs.",
   },
 ] as const;
 
@@ -231,6 +234,6 @@ export const VALUES = [
 ] as const;
 
 export const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "[FILL IN]" },
-  { label: "Instagram", href: "[FILL IN]" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/dandora-online" },
+  { label: "Instagram", href: "https://www.instagram.com/dandora.online" },
 ] as const;

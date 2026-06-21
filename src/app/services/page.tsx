@@ -26,7 +26,7 @@ export default function ServicesPage() {
       />
 
       <div className="space-y-0">
-        {SERVICES.map((service, i) => (
+        {SERVICES.map((service) => (
           <Section
             key={service.number}
             className="border-t border-border py-16 md:py-20"

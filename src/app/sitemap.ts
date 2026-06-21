@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/sectors/healthcare",
     "/sectors/d2c",
     "/sectors/it-software",
+    "/sectors/education",
   ];
 
   return routes.map((route) => ({
