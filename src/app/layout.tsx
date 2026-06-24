@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { AppProviders } from "@/components/providers/AppProviders";
 import { BRAND } from "@/lib/brand";
-import { SITE } from "@/lib/constants";
+import { SITE, SOCIAL_LINKS } from "@/lib/constants";
 import { HERO } from "@/lib/home";
 import "lenis/dist/lenis.css";
 import "./globals.css";
@@ -28,16 +28,18 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: `${SITE.name} — Growth, engineered.`,
     description: HERO.definition,
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
-        width: 1200,
-        height: 630,
-        alt: "Dandora growth consulting",
-      },
-    ],
+    // Open Graph images are supplied by the app/opengraph-image.tsx route
+    // (dynamic ImageResponse) and inherited by every page.
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} — Growth, engineered.`,
+    description: HERO.definition,
   },
   robots: { index: true, follow: true },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_TOKEN || undefined,
+  },
   icons: {
     icon: [{ url: BRAND.icon, type: "image/svg+xml" }],
     apple: [{ url: BRAND.icon, type: "image/svg+xml" }],
@@ -69,7 +71,15 @@ const organizationJsonLd = {
     "Demand generation & funnels",
     "Software & IT development",
   ],
-  sameAs: [],
+  sameAs: SOCIAL_LINKS.map((link) => link.href),
+};
+
+const webSiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.name,
+  url: SITE.url,
+  description: HERO.definition,
 };
 
 export default function RootLayout({
@@ -83,6 +93,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
         />
       </head>
       <body className="min-h-full antialiased">

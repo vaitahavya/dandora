@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { HeroBeat } from "@/components/home/HeroBeat";
 import { WhatWeDo } from "@/components/home/WhatWeDo";
 import { RealiseBeat } from "@/components/home/RealiseBeat";
@@ -9,6 +10,17 @@ import { FounderNote } from "@/components/home/FounderNote";
 import { ClientMarquee } from "@/components/home/ClientMarquee";
 import { DeRiskBand } from "@/components/home/DeRiskBand";
 import { RespondBeat } from "@/components/home/RespondBeat";
+
+const title = "Dandora — Growth, Brand & Software Under One Roof";
+const description =
+  "Dandora is a Hyderabad growth & execution partner. We plan it, build it, and ship it with you — strategy, brand, and software under one roof.";
+
+export const metadata: Metadata = {
+  title: { absolute: title },
+  description,
+  alternates: { canonical: "/" },
+  openGraph: { title, description },
+};
 
 export default function HomePage() {
   return (

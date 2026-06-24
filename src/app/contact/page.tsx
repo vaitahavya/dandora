@@ -7,16 +7,28 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { BrandMark } from "@/components/ui/Logo";
 import { SITE } from "@/lib/constants";
 import { IMAGES } from "@/lib/images";
+import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
+
+const title = "Contact Dandora — Start the Conversation";
+const description =
+  "Tell us where your business is stuck. We'll tell you straight if we can help. Growth, brand, and software — based in Hyderabad, India.";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Tell us where your business is stuck. We'll tell you — straight — if we can help.",
+  title,
+  description,
+  alternates: { canonical: "/contact" },
+  openGraph: { title, description },
 };
 
 export default function ContactPage() {
   return (
     <main>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <PageHero
         eyebrow="Contact"
         title="Ready when you are."

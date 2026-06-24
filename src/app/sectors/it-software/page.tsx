@@ -1,12 +1,29 @@
 import type { Metadata } from "next";
 import { SoftwareEngineeringPage } from "@/components/sectors/SoftwareEngineeringPage";
-import { IT_SOFTWARE } from "@/lib/sectors/it-software";
+import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
+
+const title = "Software Development Partner — Web, Mobile, Apps";
+const description =
+  "One senior-led team from wireframe to production. Web apps, mobile, desktop, and enterprise software — React, Next.js, Node, React Native.";
 
 export const metadata: Metadata = {
-  title: "Software Product Engineering Partner",
-  description: IT_SOFTWARE.hero.sub,
+  title,
+  description,
+  alternates: { canonical: "/sectors/it-software" },
+  openGraph: { title, description },
 };
 
 export default function ITSoftwarePage() {
-  return <SoftwareEngineeringPage />;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", path: "/" },
+          { name: "Sectors" },
+          { name: "Software & IT Development", path: "/sectors/it-software" },
+        ])}
+      />
+      <SoftwareEngineeringPage />
+    </>
+  );
 }

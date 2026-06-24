@@ -7,16 +7,28 @@ import { LinkButton } from "@/components/ui/LinkButton";
 import { BrandMark } from "@/components/ui/Logo";
 import { SERVICES } from "@/lib/constants";
 import { IMAGES } from "@/lib/images";
+import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
+
+const title = "Services — Strategy, Tech, Marketing & Ops";
+const description =
+  "Growth strategy, software & IT development, brand and film, demand gen and funnels — one accountable team that plugs in where you need it.";
 
 export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Strategy, technology, marketing, and operations — all of it, if you need it.",
+  title,
+  description,
+  alternates: { canonical: "/services" },
+  openGraph: { title, description },
 };
 
 export default function ServicesPage() {
   return (
     <main>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ])}
+      />
       <PageHero
         eyebrow="Services"
         title="Strategy. Tech. Marketing. Operations. All of it, if you need it."

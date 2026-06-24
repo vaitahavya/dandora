@@ -7,16 +7,28 @@ import { LinkButton } from "@/components/ui/LinkButton";
 import { BrandMark } from "@/components/ui/Logo";
 import { VALUES } from "@/lib/constants";
 import { IMAGES } from "@/lib/images";
+import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
+
+const title = "About — The People in the Room With You";
+const description =
+  "Dandora is a Hyderabad growth and execution partner. We work with founders early, hands-on, and stay until the job is shipped.";
 
 export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Dandora is a growth consulting firm. We work with founders and teams — early, hands-on, and until the job is done.",
+  title,
+  description,
+  alternates: { canonical: "/about" },
+  openGraph: { title, description },
 };
 
 export default function AboutPage() {
   return (
     <main>
+      <JsonLd
+        data={breadcrumbList([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
       <PageHero
         eyebrow="About"
         title="We stay in the room."
