@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import { AppProviders } from "@/components/providers/AppProviders";
 import { BRAND } from "@/lib/brand";
 import { SITE } from "@/lib/constants";
+import { HERO } from "@/lib/home";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -20,15 +21,13 @@ export const metadata: Metadata = {
     default: `${SITE.name} — Growth, engineered.`,
     template: `%s | ${SITE.name}`,
   },
-  description:
-    "Wherever you are today, there's a next step towards growth. Dandora standardises how your business grows — leads, pitch, brand, follow-through — so the next move is repeatable, not accidental.",
+  description: `${HERO.definition} Hyderabad-rooted, we standardise how your business grows — leads, pitch, brand, follow-through — so the next move is repeatable, not accidental.`,
   openGraph: {
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
     title: `${SITE.name} — Growth, engineered.`,
-    description:
-      "We help you take the next step towards growth — on purpose, not by accident.",
+    description: HERO.definition,
     images: [
       {
         url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
@@ -47,16 +46,29 @@ export const metadata: Metadata = {
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": ["Organization", "ProfessionalService"],
   name: SITE.name,
   url: SITE.url,
-  description: SITE.tagline,
+  description: HERO.definition,
+  slogan: HERO.definition,
   email: SITE.email,
   address: {
     "@type": "PostalAddress",
     addressLocality: SITE.location,
     addressCountry: "IN",
   },
+  serviceType: [
+    "Growth strategy & consulting",
+    "Brand, film & content production",
+    "Demand generation & funnels",
+    "Software & IT development",
+  ],
+  knowsAbout: [
+    "Growth strategy & consulting",
+    "Brand, film & content production",
+    "Demand generation & funnels",
+    "Software & IT development",
+  ],
   sameAs: [],
 };
 

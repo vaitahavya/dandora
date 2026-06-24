@@ -16,6 +16,13 @@ import { SITE } from "@/lib/constants";
 
 const PLATFORMS = ["Web", "Mobile", "Desktop", "Enterprise"] as const;
 const STAGES = ["Idea", "Designs ready", "In progress", "Live & scaling"] as const;
+const BUDGETS = ["< ₹5L", "₹5–15L", "₹15–40L", "₹40L+", "Not sure yet"] as const;
+const ENGAGEMENTS = [
+  "Dedicated team",
+  "Project-based",
+  "Staff augmentation",
+  "Not sure yet",
+] as const;
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -25,12 +32,16 @@ export function ScopeBuildDialog({ trigger }: { trigger: ReactElement }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [platforms, setPlatforms] = useState<string[]>([]);
   const [stage, setStage] = useState<string>("");
+  const [budget, setBudget] = useState<string>("");
+  const [engagement, setEngagement] = useState<string>("");
 
   const reset = () => {
     setStatus("idle");
     setErrorMessage("");
     setPlatforms([]);
     setStage("");
+    setBudget("");
+    setEngagement("");
   };
 
   const handleOpenChange = (next: boolean) => {
@@ -55,12 +66,18 @@ export function ScopeBuildDialog({ trigger }: { trigger: ReactElement }) {
     const email = String(data.get("email") ?? "").trim();
     const building = String(data.get("building") ?? "").trim();
     const timeline = String(data.get("timeline") ?? "").trim();
+    const techTeam = String(data.get("techTeam") ?? "").trim();
+    const success = String(data.get("success") ?? "").trim();
 
     const challengeParts = [
       building && `Building: ${building}`,
       platforms.length > 0 && `Platform: ${platforms.join(", ")}`,
-      timeline && `Timeline: ${timeline}`,
       stage && `Stage: ${stage}`,
+      timeline && `Timeline: ${timeline}`,
+      budget && `Budget: ${budget}`,
+      engagement && `Engagement model: ${engagement}`,
+      techTeam && `Existing stack / team: ${techTeam}`,
+      success && `Success criteria: ${success}`,
     ].filter(Boolean);
 
     try {
@@ -71,7 +88,7 @@ export function ScopeBuildDialog({ trigger }: { trigger: ReactElement }) {
           name,
           email,
           sector: "Software & IT Development",
-          challenge: challengeParts.join(" · "),
+          challenge: challengeParts.join("\n"),
         }),
       });
 
@@ -206,6 +223,76 @@ export function ScopeBuildDialog({ trigger }: { trigger: ReactElement }) {
                     </button>
                   ))}
                 </div>
+              </div>
+
+              <div>
+                <span className="mb-2.5 block text-[0.95rem] font-medium text-foreground">
+                  Rough budget
+                </span>
+                <div className="flex flex-wrap gap-2.5">
+                  {BUDGETS.map((b) => (
+                    <button
+                      key={b}
+                      type="button"
+                      className="chip focus-ring"
+                      aria-pressed={budget === b}
+                      onClick={() => setBudget(budget === b ? "" : b)}
+                    >
+                      {b}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <span className="mb-2.5 block text-[0.95rem] font-medium text-foreground">
+                  How you&apos;d like to work with us
+                </span>
+                <div className="flex flex-wrap gap-2.5">
+                  {ENGAGEMENTS.map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      className="chip focus-ring"
+                      aria-pressed={engagement === m}
+                      onClick={() => setEngagement(engagement === m ? "" : m)}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="techTeam"
+                  className="mb-2 block text-[0.95rem] font-medium text-foreground"
+                >
+                  Existing stack &amp; team
+                </label>
+                <Textarea
+                  id="techTeam"
+                  name="techTeam"
+                  rows={2}
+                  placeholder="e.g. React + Node, a designer and two engineers — or greenfield"
+                  className="min-h-20 resize-none rounded-xl border-border bg-background px-4 py-3 text-[1rem]"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="success"
+                  className="mb-2 block text-[0.95rem] font-medium text-foreground"
+                >
+                  What does success look like in 3–6 months?
+                </label>
+                <Textarea
+                  id="success"
+                  name="success"
+                  rows={2}
+                  placeholder="The outcome that would make this a win"
+                  className="min-h-20 resize-none rounded-xl border-border bg-background px-4 py-3 text-[1rem]"
+                />
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">

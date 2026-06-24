@@ -70,9 +70,17 @@ export function HeroBeat() {
             towards growth.
           </motion.h1>
 
+          {/* Canonical definition — literally present in the DOM for clarity */}
           <motion.p
-            className="body-l mx-auto mt-6 max-w-[46ch] text-muted lg:mx-0"
-            {...rise(0.16)}
+            className="mx-auto mt-6 max-w-[52ch] text-[1.0625rem] font-medium leading-relaxed text-foreground lg:mx-0"
+            {...rise(0.12)}
+          >
+            {HERO.definition}
+          </motion.p>
+
+          <motion.p
+            className="body-l mx-auto mt-4 max-w-[46ch] text-muted lg:mx-0"
+            {...rise(0.18)}
           >
             {HERO.sub}
           </motion.p>

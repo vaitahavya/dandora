@@ -6,10 +6,50 @@
 export const HERO = {
   eyebrow: "DANDORA",
   h1: "Wherever you are today — there's a next step towards growth.",
+  // Canonical definition — kept literally in the DOM for first-time visitors,
+  // search engines, and LLMs. Do not hide behind hover/animation.
+  definition:
+    "Dandora is a growth and execution partner: we plan it, build it, and ship it with you — strategy, brand, and software under one roof.",
   sub: "Stuck, scaling, or quietly comfortable — your business has a next move. The only question is whether you make it on purpose, or wait until the market makes it for you.",
   primary: "Start the conversation",
   ghost: "See if this is for you",
   micro: "Growth, engineered.",
+} as const;
+
+export const WHAT_WE_DO = {
+  eyebrow: "WHAT WE DO",
+  h2: "Strategy, brand, and software — under one roof.",
+  sub: "Four ways we plan it, build it, and ship it with you.",
+  services: [
+    {
+      id: "strategy",
+      name: "Growth strategy & consulting",
+      line: "Clarity on the next move — market, model, and how you scale.",
+      icon: "compass",
+      href: "/services",
+    },
+    {
+      id: "brand",
+      name: "Brand, film & content production",
+      line: "A decade of high-end storytelling, made in-house, not outsourced.",
+      icon: "clapperboard",
+      href: "/services",
+    },
+    {
+      id: "demand",
+      name: "Demand generation & funnels",
+      line: "Leads, pitch, and follow-through built into a repeatable engine.",
+      icon: "trending-up",
+      href: "/services",
+    },
+    {
+      id: "software",
+      name: "Software & IT development",
+      line: "Senior-led teams that design, build, and ship — web, mobile, desktop.",
+      icon: "code",
+      href: "/sectors/it-software",
+    },
+  ],
 } as const;
 
 export const REALISE = {
@@ -147,12 +187,21 @@ export const DERISK = {
   closer: "Prove it small. Then scale what works.",
 } as const;
 
+export const FOUNDER_NOTE = {
+  eyebrow: "A NOTE FROM THE FOUNDERS",
+  // NOTE TO USER: Personalise this signature with the founder's real name(s)
+  // before launch — it's intentionally signed generically for now.
+  body: "We started Dandora because most businesses don't fail for lack of effort — they get let down by handoffs. Strategy in one room, brand in another, software somewhere else, and no one accountable for the result. So we built the opposite: one team that plans it, builds it, and ships it with you. We're not an agency you brief and wait on. We're the people in the room with you — early, hands-on, and until it's done.",
+  signature: "— The founders, Dandora",
+} as const;
+
 export const FOOTER = {
   tagline: "Dandora — Growth, engineered.",
   links: [
     { label: "Real Estate", href: "/sectors/real-estate" },
     { label: "D2C", href: "/sectors/d2c" },
     { label: "IT & Software", href: "/sectors/it-software" },
+    { label: "EduConnect — School ERP", href: "/products/educonnect" },
     { label: "Privacy", href: "/privacy" },
   ],
 } as const;

@@ -8,31 +8,33 @@ import {
 } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check, GripVertical, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Answers, Field } from "@/lib/questionnaire";
-import {
-  INTRO,
-  reflectObservations,
-  STEPS,
-  TOTAL_STEPS,
-} from "@/lib/questionnaire";
+import type { Answers, Field, FormIntro, Step } from "@/lib/questionnaire";
+import { reflectObservations } from "@/lib/questionnaire";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 
-type Phase = "intro" | "step" | "end";
+type Phase = "intro" | "step" | "offer" | "end";
+type Segment = "short" | "deeper";
 
 type Props = {
   isOpen: boolean;
   phase: Phase;
+  segment: Segment;
   step: number;
   sector?: string;
+  intro: FormIntro;
+  shortSteps: Step[];
+  deeperSteps: Step[];
   answers: Answers;
   onClose: () => void;
   onSetPhase: (p: Phase) => void;
+  onSetSegment: (s: Segment) => void;
   onSetStep: (s: number) => void;
   onSetAnswer: (key: string, value: unknown) => void;
+  onSubmit: (stage: Segment) => Promise<void>;
 };
 
 function isFilled(value: unknown): boolean {
@@ -41,15 +43,12 @@ function isFilled(value: unknown): boolean {
   return value != null && value !== "";
 }
 
-function stepComplete(step: number, answers: Answers): boolean {
-  const def = STEPS[step - 1];
+function stepComplete(def: Step | undefined, answers: Answers): boolean {
   if (!def) return true;
   return def.fields.every((f) => {
     if (!f.required) return true;
     if (f.type === "contact") {
-      return (
-        isFilled(answers.contactName) && isFilled(answers.contactInfo)
-      );
+      return isFilled(answers.contactName) && isFilled(answers.contactInfo);
     }
     return isFilled(answers[f.key]);
   });
@@ -58,15 +57,26 @@ function stepComplete(step: number, answers: Answers): boolean {
 export function QuestionnaireModal({
   isOpen,
   phase,
+  segment,
   step,
   sector,
+  intro,
+  shortSteps,
+  deeperSteps,
   answers,
   onClose,
   onSetPhase,
+  onSetSegment,
   onSetStep,
   onSetAnswer,
+  onSubmit,
 }: Props) {
   const reduce = useReducedMotion();
+  const [submitting, setSubmitting] = useState(false);
+
+  const activeSteps = segment === "deeper" ? deeperSteps : shortSteps;
+  const total = activeSteps.length;
+  const hasDeeper = deeperSteps.length > 0;
   const panelRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -119,40 +129,84 @@ export function QuestionnaireModal({
       firstInput?.focus({ preventScroll: true });
     }, 60);
     return () => clearTimeout(t);
-  }, [isOpen, step, phase]);
-
-  const goNext = useCallback(() => {
-    if (phase === "intro") {
-      onSetPhase("step");
-      onSetStep(1);
-      return;
-    }
-    if (step >= TOTAL_STEPS) {
-      onSetPhase("end");
-      return;
-    }
-    onSetStep(step + 1);
-  }, [phase, step, onSetPhase, onSetStep]);
+  }, [isOpen, step, phase, segment]);
 
   const goBack = useCallback(() => {
+    if (segment === "deeper" && step <= 1) {
+      onSetSegment("short");
+      onSetPhase("offer");
+      return;
+    }
     if (step <= 1) {
       onSetPhase("intro");
       return;
     }
     onSetStep(step - 1);
-  }, [step, onSetPhase, onSetStep]);
+  }, [segment, step, onSetPhase, onSetSegment, onSetStep]);
 
-  const canContinue = phase !== "step" || stepComplete(step, answers);
+  const canContinue =
+    phase !== "step" || stepComplete(activeSteps[step - 1], answers);
 
   const [direction, setDirection] = useState(1);
-  const handleNext = () => {
+
+  const handleNext = useCallback(async () => {
     setDirection(1);
-    goNext();
-  };
+
+    if (phase === "intro") {
+      onSetSegment("short");
+      onSetPhase("step");
+      onSetStep(1);
+      return;
+    }
+
+    if (phase !== "step") return;
+
+    // Not the last step of the current segment → just advance.
+    if (step < total) {
+      onSetStep(step + 1);
+      return;
+    }
+
+    // Last step of the segment → submit, then branch.
+    setSubmitting(true);
+    await onSubmit(segment);
+    setSubmitting(false);
+
+    if (segment === "short" && hasDeeper) {
+      onSetPhase("offer");
+    } else {
+      onSetPhase("end");
+    }
+  }, [
+    phase,
+    segment,
+    step,
+    total,
+    hasDeeper,
+    onSubmit,
+    onSetPhase,
+    onSetSegment,
+    onSetStep,
+  ]);
+
   const handleBack = () => {
     setDirection(-1);
     goBack();
   };
+
+  const continueDeeper = () => {
+    setDirection(1);
+    onSetSegment("deeper");
+    onSetPhase("step");
+    onSetStep(1);
+  };
+
+  const finishFromOffer = () => {
+    setDirection(1);
+    onSetPhase("end");
+  };
+
+  const isLastStep = phase === "step" && step >= total;
 
   const slide = reduce
     ? {}
@@ -163,7 +217,7 @@ export function QuestionnaireModal({
         transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] as const },
       };
 
-  const currentStep = STEPS[step - 1];
+  const currentStep = activeSteps[step - 1];
   const observations = phase === "end" ? reflectObservations(answers) : [];
 
   return (
@@ -195,9 +249,9 @@ export function QuestionnaireModal({
               value={
                 phase === "intro"
                   ? 0
-                  : phase === "end"
+                  : phase === "end" || phase === "offer"
                     ? 100
-                    : (step / TOTAL_STEPS) * 100
+                    : (step / total) * 100
               }
               className="shrink-0 gap-0 [&_[data-slot=progress-indicator]]:bg-accent-secondary [&_[data-slot=progress-indicator]]:transition-[width] [&_[data-slot=progress-indicator]]:duration-300 [&_[data-slot=progress-track]]:rounded-none [&_[data-slot=progress-track]]:bg-border md:[&_[data-slot=progress-track]]:rounded-t-2xl"
             />
@@ -207,12 +261,14 @@ export function QuestionnaireModal({
               <span className="flex items-center gap-2.5">
                 <span className="micro font-medium">
                   {phase === "step"
-                    ? `Step ${step} of ${TOTAL_STEPS}`
+                    ? `${segment === "deeper" ? "Deeper · " : ""}Step ${step} of ${total}`
                     : phase === "end"
                       ? "Complete"
-                      : "A few questions"}
+                      : phase === "offer"
+                        ? "Received"
+                        : "A few questions"}
                 </span>
-                {sector && phase === "step" && (
+                {sector && (phase === "step" || phase === "offer") && (
                   <Badge
                     variant="outline"
                     className="rounded-full border-accent-secondary/40 bg-accent-secondary-soft px-2.5 text-[0.7rem] font-semibold tracking-wide text-accent-secondary"
@@ -241,9 +297,9 @@ export function QuestionnaireModal({
                   <motion.div key="intro" {...slide}>
                     <p className="eyebrow">Before we begin</p>
                     <h2 className="h3 mt-4 text-[1.65rem] leading-tight">
-                      {INTRO.title}
+                      {intro.title}
                     </h2>
-                    <p className="body-base prose-muted mt-4">{INTRO.body}</p>
+                    <p className="body-base prose-muted mt-4">{intro.body}</p>
                   </motion.div>
                 )}
 
@@ -261,6 +317,22 @@ export function QuestionnaireModal({
                         />
                       ))}
                     </div>
+                  </motion.div>
+                )}
+
+                {phase === "offer" && (
+                  <motion.div key="offer" {...slide}>
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent-secondary-soft">
+                      <Check className="h-6 w-6 text-accent-secondary" />
+                    </div>
+                    <h2 className="h3 mt-5">
+                      Got it — your enquiry is in.
+                    </h2>
+                    <p className="body-base prose-muted mt-4">
+                      We have what we need to come back to you. If you have a
+                      couple more minutes, a few deeper questions will sharpen
+                      our read — entirely optional.
+                    </p>
                   </motion.div>
                 )}
 
@@ -304,6 +376,24 @@ export function QuestionnaireModal({
                 >
                   Done
                 </button>
+              ) : phase === "offer" ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={finishFromOffer}
+                    className="focus-ring inline-flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
+                  >
+                    No thanks, I&apos;m done
+                  </button>
+                  <button
+                    type="button"
+                    onClick={continueDeeper}
+                    className="btn btn-primary"
+                  >
+                    Continue — a few more
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                </>
               ) : (
                 <>
                   <button
@@ -317,15 +407,19 @@ export function QuestionnaireModal({
                   <button
                     type="button"
                     onClick={handleNext}
-                    disabled={!canContinue}
+                    disabled={!canContinue || submitting}
                     className="btn btn-primary disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    {phase === "intro"
-                      ? INTRO.cta
-                      : step >= TOTAL_STEPS
-                        ? "See what we see"
-                        : "Continue"}
-                    <ArrowRight className="h-4 w-4" />
+                    {submitting
+                      ? "Submitting…"
+                      : phase === "intro"
+                        ? intro.cta
+                        : isLastStep
+                          ? sector
+                            ? "Submit enquiry"
+                            : "See what we see"
+                          : "Continue"}
+                    {!submitting && <ArrowRight className="h-4 w-4" />}
                   </button>
                 </>
               )}

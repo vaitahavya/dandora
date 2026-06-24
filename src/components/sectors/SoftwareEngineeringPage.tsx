@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowDown, ArrowRight, Check } from "lucide-react";
 import { IT_SOFTWARE as C } from "@/lib/sectors/it-software";
 import { IMAGES } from "@/lib/images";
@@ -276,6 +277,82 @@ export function SoftwareEngineeringPage() {
                 </div>
               </RevealItem>
             ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Our product (EduConnect) ─────────────────────────── */}
+      <section className="bg-background py-[clamp(96px,12vh,160px)]">
+        <div className="mx-auto max-w-[1200px] px-5 md:px-8">
+          <Reveal>
+            <RevealItem>
+              <div className="overflow-hidden rounded-[2rem] border border-border bg-surface ring-1 ring-foreground/10 shadow-[var(--shadow-glass)]">
+                <div className="grid gap-10 p-8 sm:p-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+                  <div>
+                    <p className="eyebrow">OUR PRODUCT</p>
+                    <h2 className="h2 mt-4 max-w-[18ch]">
+                      EduConnect — smart school management.
+                    </h2>
+                    <p className="body-l mt-6 max-w-[54ch] text-muted">
+                      Our own school ERP and parent-communication platform —
+                      attendance, fees, academics, and parent engagement in one
+                      connected app. Built and shipped by our team.
+                    </p>
+
+                    <div className="mt-7 flex flex-wrap gap-2">
+                      {[
+                        "Attendance",
+                        "Parent app",
+                        "Fees & receipts",
+                        "Report cards",
+                      ].map((chip) => (
+                        <span
+                          key={chip}
+                          className="inline-flex items-center rounded-full border border-border bg-background px-3.5 py-1.5 text-[0.875rem] font-medium text-foreground"
+                        >
+                          {chip}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-9">
+                      <Link
+                        href="/products/educonnect"
+                        className="btn btn-primary w-full sm:w-auto"
+                      >
+                        View EduConnect
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.5rem] border border-accent-secondary/25 bg-accent-secondary-soft/40 p-7 sm:p-8">
+                    <p className="text-[0.8rem] font-semibold uppercase tracking-wider text-accent-secondary">
+                      Shipped by Dandora
+                    </p>
+                    <p className="mt-4 leading-relaxed text-foreground">
+                      One connected ecosystem for administrators, teachers, and
+                      parents — proof that we build and run real products, not
+                      just client work.
+                    </p>
+                    <div className="mt-6 grid grid-cols-2 gap-4 border-t border-accent-secondary/20 pt-6">
+                      <div>
+                        <p className="h3 text-[1.5rem] text-accent">1 app</p>
+                        <p className="mt-1 text-[0.85rem] text-muted">
+                          Admin, staff &amp; parents
+                        </p>
+                      </div>
+                      <div>
+                        <p className="h3 text-[1.5rem] text-accent">End-to-end</p>
+                        <p className="mt-1 text-[0.85rem] text-muted">
+                          Admissions to report cards
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </RevealItem>
           </Reveal>
         </div>
       </section>

@@ -10,17 +10,18 @@ import {
   useState,
 } from "react";
 import type { Answers } from "@/lib/questionnaire";
-import { TOTAL_STEPS } from "@/lib/questionnaire";
+import { getForm } from "@/lib/questionnaire";
 import { QuestionnaireModal } from "./QuestionnaireModal";
 
-type Phase = "intro" | "step" | "end";
+type Phase = "intro" | "step" | "offer" | "end";
+type Segment = "short" | "deeper";
 
 type OpenOptions = {
-  /** Step to land on (1–9). Omit to show the intro screen. */
+  /** Step to land on within the short intake. Omit to show the intro screen. */
   startStep?: number;
   /** Answers to merge in (e.g. a Beat-3 card pre-fill). */
   prefill?: Answers;
-  /** Growth sector label (e.g. "Real Estate") — tags the enquiry. */
+  /** Growth sector label (e.g. "Real Estate") — selects the tailored form. */
   sector?: string;
 };
 
@@ -43,6 +44,7 @@ export function QuestionnaireProvider({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [phase, setPhase] = useState<Phase>("intro");
+  const [segment, setSegment] = useState<Segment>("short");
   const [step, setStep] = useState(1);
   const [sector, setSector] = useState<string | undefined>(undefined);
   const [answers, setAnswers] = useState<Answers>(() => {
@@ -58,6 +60,12 @@ export function QuestionnaireProvider({
   });
   const lastFocused = useRef<HTMLElement | null>(null);
 
+  // Keep a live ref so the submit handler always posts the latest answers.
+  const answersRef = useRef(answers);
+  useEffect(() => {
+    answersRef.current = answers;
+  }, [answers]);
+
   // Persist answers within the session.
   useEffect(() => {
     try {
@@ -67,9 +75,13 @@ export function QuestionnaireProvider({
     }
   }, [answers]);
 
+  const form = useMemo(() => getForm(sector), [sector]);
+
   const open = useCallback((options?: OpenOptions) => {
     lastFocused.current = document.activeElement as HTMLElement | null;
+    const nextForm = getForm(options?.sector);
     setSector(options?.sector);
+    setSegment("short");
     if (options?.prefill || options?.sector) {
       setAnswers((prev) => ({
         ...prev,
@@ -79,7 +91,9 @@ export function QuestionnaireProvider({
     }
     if (options?.startStep) {
       setPhase("step");
-      setStep(Math.min(Math.max(options.startStep, 1), TOTAL_STEPS));
+      setStep(
+        Math.min(Math.max(options.startStep, 1), nextForm.short.length),
+      );
     } else {
       setPhase("intro");
       setStep(1);
@@ -97,6 +111,25 @@ export function QuestionnaireProvider({
     setAnswers((prev) => ({ ...prev, [key]: value }));
   }, []);
 
+  const submit = useCallback(
+    async (stage: Segment) => {
+      try {
+        await fetch("/api/questionnaire", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...answersRef.current,
+            sector,
+            _stage: stage,
+          }),
+        });
+      } catch {
+        // Never block the visitor on a delivery hiccup; the lead UX continues.
+      }
+    },
+    [sector],
+  );
+
   const value = useMemo(
     () => ({ open, close, isOpen }),
     [open, close, isOpen],
@@ -108,13 +141,19 @@ export function QuestionnaireProvider({
       <QuestionnaireModal
         isOpen={isOpen}
         phase={phase}
+        segment={segment}
         step={step}
         sector={sector}
+        intro={form.intro}
+        shortSteps={form.short}
+        deeperSteps={form.deeper}
         answers={answers}
         onClose={close}
         onSetPhase={setPhase}
+        onSetSegment={setSegment}
         onSetStep={setStep}
         onSetAnswer={setAnswer}
+        onSubmit={submit}
       />
     </QuestionnaireContext.Provider>
   );
