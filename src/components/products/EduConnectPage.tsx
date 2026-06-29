@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -255,6 +256,40 @@ export function EduConnectPage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* ══ Supporting visual — the connected classroom ════════════ */}
+      <section className="bg-background pb-[clamp(8px,2vh,32px)]">
+        <div className="mx-auto max-w-[1200px] px-5 md:px-8">
+          <Reveal>
+            <RevealItem>
+              <div className="relative mx-auto max-w-5xl">
+                <div
+                  className="absolute -inset-5 -z-10 rounded-[2rem] opacity-60 blur-2xl"
+                  style={{
+                    background:
+                      "radial-gradient(60% 60% at 20% 10%, rgba(79,70,229,0.20), transparent 70%), radial-gradient(50% 50% at 90% 90%, rgba(6,182,212,0.20), transparent 70%)",
+                  }}
+                  aria-hidden
+                />
+                <div className="relative aspect-[21/9] overflow-hidden rounded-[1.75rem] ring-1 ring-foreground/10 shadow-[var(--shadow-glass)]">
+                  <Image
+                    src="/images/educonnect/classroom.jpg"
+                    alt="Students working at computers in a connected classroom"
+                    fill
+                    sizes="(max-width: 1024px) 92vw, 1024px"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#0b0d17]/45 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-medium text-white backdrop-blur-md">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent-secondary" />
+                    One app, the whole school in sync
+                  </div>
+                </div>
+              </div>
+            </RevealItem>
+          </Reveal>
         </div>
       </section>
 
