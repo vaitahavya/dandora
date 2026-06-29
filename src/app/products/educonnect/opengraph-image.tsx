@@ -1,10 +1,24 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
-export const alt = "EduConnect — Smart school management · a dandora.online product";
+export const alt =
+  "EduConnect — Smart school management · a dandora.online product";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function Image() {
+export default async function Image() {
+  // White reversed lockup for the "by dandora.online" brand endorsement.
+  const logo = await readFile(
+    join(process.cwd(), "public", "dandora-online-reversed.svg"),
+    "base64"
+  );
+  const logoSrc = `data:image/svg+xml;base64,${logo}`;
+
+  // reversed.svg viewBox is 883.38 × 178.73 (≈4.94:1).
+  const logoWidth = 320;
+  const logoHeight = Math.round((logoWidth * 178.73) / 883.38);
+
   return new ImageResponse(
     (
       <div
@@ -24,24 +38,20 @@ export default function Image() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 16,
-            fontSize: 34,
-            fontWeight: 600,
-            letterSpacing: "-0.01em",
+            gap: 18,
+            fontSize: 30,
+            fontWeight: 500,
             opacity: 0.92,
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              padding: "8px 20px",
-              borderRadius: 999,
-              border: "2px solid rgba(255,255,255,0.55)",
-              fontSize: 26,
-            }}
-          >
-            a dandora.online product
-          </div>
+          <span style={{ display: "flex" }}>a</span>
+          <img
+            src={logoSrc}
+            width={logoWidth}
+            height={logoHeight}
+            alt="dandora.online"
+          />
+          <span style={{ display: "flex" }}>product</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>

@@ -1,10 +1,25 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const alt = "Dandora — Growth, engineered.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function Image() {
+export default async function Image() {
+  // The reversed (white) lockup reads cleanly on the indigo→cyan gradient.
+  // Inline it as a base64 SVG data URI — Satori renders this far more reliably
+  // than referencing the file by path.
+  const logo = await readFile(
+    join(process.cwd(), "public", "dandora-online-reversed.svg"),
+    "base64"
+  );
+  const logoSrc = `data:image/svg+xml;base64,${logo}`;
+
+  // reversed.svg viewBox is 883.38 × 178.73 (≈4.94:1).
+  const logoWidth = 760;
+  const logoHeight = Math.round((logoWidth * 178.73) / 883.38);
+
   return new ImageResponse(
     (
       <div
@@ -23,33 +38,28 @@ export default function Image() {
         <div
           style={{
             display: "flex",
-            fontSize: 38,
+            fontSize: 34,
             fontWeight: 600,
             letterSpacing: "-0.01em",
-            opacity: 0.92,
+            opacity: 0.9,
           }}
         >
           dandora.online
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              display: "flex",
-              fontSize: 148,
-              fontWeight: 700,
-              letterSpacing: "-0.04em",
-              lineHeight: 1,
-            }}
-          >
-            Dandora
-          </div>
+          <img
+            src={logoSrc}
+            width={logoWidth}
+            height={logoHeight}
+            alt="Dandora"
+          />
           <div
             style={{
               display: "flex",
               fontSize: 60,
               fontWeight: 500,
-              marginTop: 18,
+              marginTop: 36,
               opacity: 0.95,
             }}
           >

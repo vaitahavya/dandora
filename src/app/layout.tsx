@@ -41,8 +41,14 @@ export const metadata: Metadata = {
     google: process.env.NEXT_PUBLIC_GSC_TOKEN || undefined,
   },
   icons: {
-    icon: [{ url: BRAND.icon, type: "image/svg+xml" }],
-    apple: [{ url: BRAND.icon, type: "image/svg+xml" }],
+    icon: [
+      // PNG first so clients that ignore SVG favicons still get the brand mark.
+      { url: "/dandora-online-icon-512.png", type: "image/png", sizes: "512x512" },
+      { url: BRAND.icon, type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/dandora-online-icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
   },
 };
 
