@@ -35,7 +35,7 @@ export function GrowthSectorPage({ content }: { content: GrowthSectorContent }) 
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, rgba(11,13,23,0.92) 0%, rgba(11,13,23,0.62) 38%, rgba(11,13,23,0.30) 70%, rgba(11,13,23,0.45) 100%)",
+              "linear-gradient(to top, rgba(11,13,23,0.94) 0%, rgba(11,13,23,0.80) 45%, rgba(11,13,23,0.55) 72%, rgba(11,13,23,0.40) 100%)",
           }}
           aria-hidden
         />
