@@ -125,6 +125,17 @@ export function Nav() {
             )}
           </div>
 
+          <Link
+            href="/journal"
+            className={`focus-ring rounded-full px-4 py-2.5 text-sm font-medium transition-colors md:text-base ${
+              onDark
+                ? "text-white hover:bg-white/10"
+                : "text-foreground hover:bg-foreground/5"
+            }`}
+          >
+            Journal
+          </Link>
+
           <button
             type="button"
             onClick={() => open()}
@@ -176,6 +187,13 @@ export function Nav() {
                 </Link>
               ))}
             </div>
+            <Link
+              href="/journal"
+              onClick={() => setMobileOpen(false)}
+              className="focus-ring mt-4 block rounded-xl px-3 py-3 text-[1rem] font-semibold text-foreground transition-colors hover:bg-foreground/5"
+            >
+              Journal
+            </Link>
             <button
               type="button"
               onClick={() => {

@@ -198,6 +198,7 @@ export const FOUNDER_NOTE = {
 export const FOOTER = {
   tagline: "Dandora — Growth, engineered.",
   links: [
+    { label: "Journal", href: "/journal" },
     { label: "Real Estate", href: "/sectors/real-estate" },
     { label: "D2C", href: "/sectors/d2c" },
     { label: "IT & Software", href: "/sectors/it-software" },

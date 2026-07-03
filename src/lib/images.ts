@@ -51,6 +51,11 @@ export const IMAGES = {
       band: "/images/sectors/it-software-band.jpg",
     },
   },
+  /** Journal / blog post imagery. */
+  journal: {
+    housingMarketHero: "/images/journal/housing-market-hero.jpg",
+    housingMarketInterior: "/images/journal/housing-market-interior.jpg",
+  },
 } as const;
 
 export type ServiceImageKey = keyof typeof IMAGES.services;
