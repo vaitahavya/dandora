@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Dandora",
   tagline: "We're the people in the room with you.",
-  url: "https://dandora.online",
+  url: "https://www.dandora.online",
   email: "dandora.online@gmail.com",
   phone: "+91 40 4521 6780",
   location: "Hyderabad",

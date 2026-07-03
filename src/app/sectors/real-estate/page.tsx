@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import { GrowthSectorPage } from "@/components/sectors/GrowthSectorPage";
 import { REAL_ESTATE } from "@/lib/sectors/real-estate";
 import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seo";
 
 const title = "Real Estate Marketing & Growth, Hyderabad";
 const description =
   "Sell the last of your inventory to end-users. Cinematic project films, demand funnels, and visibility that turn online searches into site visits.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title,
   description,
-  alternates: { canonical: "/sectors/real-estate" },
-  openGraph: { title, description },
-};
+  path: "/sectors/real-estate",
+});
 
 export default function RealEstatePage() {
   return (

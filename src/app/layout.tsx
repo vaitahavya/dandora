@@ -4,6 +4,7 @@ import { AppProviders } from "@/components/providers/AppProviders";
 import { BRAND } from "@/lib/brand";
 import { SITE, SOCIAL_LINKS } from "@/lib/constants";
 import { HERO } from "@/lib/home";
+import { siteWideSocialMetadata } from "@/lib/seo";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -22,20 +23,10 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.name}`,
   },
   description: `${HERO.definition} Hyderabad-rooted, we standardise how your business grows — leads, pitch, brand, follow-through — so the next move is repeatable, not accidental.`,
-  openGraph: {
-    type: "website",
-    locale: "en_IN",
-    siteName: SITE.name,
-    title: `${SITE.name} — Growth, engineered.`,
-    description: HERO.definition,
-    // Open Graph images are supplied by the app/opengraph-image.tsx route
-    // (dynamic ImageResponse) and inherited by every page.
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${SITE.name} — Growth, engineered.`,
-    description: HERO.definition,
-  },
+  ...siteWideSocialMetadata(
+    `${SITE.name} — Growth, engineered.`,
+    HERO.definition,
+  ),
   robots: { index: true, follow: true },
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_TOKEN || undefined,

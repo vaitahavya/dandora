@@ -2,17 +2,19 @@ import type { Metadata } from "next";
 import { EduConnectPage } from "@/components/products/EduConnectPage";
 import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
 import { SITE } from "@/lib/constants";
+import { EDUCONNECT_OG_IMAGE, buildPageMetadata } from "@/lib/seo";
 
 const title = "EduConnect — School ERP & Parent App";
 const description =
   "EduConnect is Dandora's school ERP and parent-communication app — attendance, fees, academics, and engagement in one system. CBSE & State board ready.";
 
-export const metadata: Metadata = {
-  title: { absolute: title },
+export const metadata: Metadata = buildPageMetadata({
+  title,
   description,
-  alternates: { canonical: "/products/educonnect" },
-  openGraph: { title, description },
-};
+  path: "/products/educonnect",
+  absoluteTitle: true,
+  openGraphImage: EDUCONNECT_OG_IMAGE,
+});
 
 const softwareApplicationJsonLd = {
   "@context": "https://schema.org",

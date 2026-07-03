@@ -8,17 +8,17 @@ import { BrandMark } from "@/components/ui/Logo";
 import { SERVICES } from "@/lib/constants";
 import { IMAGES } from "@/lib/images";
 import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seo";
 
 const title = "Services — Strategy, Tech, Marketing & Ops";
 const description =
   "Growth strategy, software & IT development, brand and film, demand gen and funnels — one accountable team that plugs in where you need it.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title,
   description,
-  alternates: { canonical: "/services" },
-  openGraph: { title, description },
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

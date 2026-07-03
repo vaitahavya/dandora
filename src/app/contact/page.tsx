@@ -8,17 +8,17 @@ import { BrandMark } from "@/components/ui/Logo";
 import { SITE } from "@/lib/constants";
 import { IMAGES } from "@/lib/images";
 import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seo";
 
 const title = "Contact Dandora — Start the Conversation";
 const description =
   "Tell us where your business is stuck. We'll tell you straight if we can help. Growth, brand, and software — based in Hyderabad, India.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title,
   description,
-  alternates: { canonical: "/contact" },
-  openGraph: { title, description },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

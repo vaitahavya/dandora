@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SITE } from "@/lib/constants";
 import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seo";
 
 const title = "Privacy Policy";
 const description =
   "How Dandora collects, uses, and protects your information, including form submissions and analytics cookies.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title,
   description,
-  alternates: { canonical: "/privacy" },
-  openGraph: { title, description },
-};
+  path: "/privacy",
+});
 
 const LAST_UPDATED = "24 June 2026";
 

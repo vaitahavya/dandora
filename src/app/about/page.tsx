@@ -8,17 +8,17 @@ import { BrandMark } from "@/components/ui/Logo";
 import { VALUES } from "@/lib/constants";
 import { IMAGES } from "@/lib/images";
 import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seo";
 
 const title = "About — The People in the Room With You";
 const description =
   "Dandora is a Hyderabad growth and execution partner. We work with founders early, hands-on, and stay until the job is shipped.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title,
   description,
-  alternates: { canonical: "/about" },
-  openGraph: { title, description },
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

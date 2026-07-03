@@ -7,6 +7,7 @@ import {
   getAllJournalSlugs,
   getJournalPost,
 } from "@/lib/journal";
+import { buildPageMetadata } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -23,18 +24,14 @@ export async function generateMetadata({
   const post = getJournalPost(slug);
   if (!post) return {};
 
-  return {
+  return buildPageMetadata({
     title: post.title,
     description: post.seoDescription,
-    alternates: { canonical: `/journal/${post.slug}` },
-    openGraph: {
-      title: post.title,
-      description: post.seoDescription,
-      type: "article",
-      publishedTime: post.publishedAt,
-      authors: [post.author],
-    },
-  };
+    path: `/journal/${post.slug}`,
+    openGraphType: "article",
+    publishedTime: post.publishedAt,
+    authors: [post.author],
+  });
 }
 
 export default async function JournalPostPage({ params }: PageProps) {
