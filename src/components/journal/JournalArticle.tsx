@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { Reveal, RevealItem } from "@/components/ui/Reveal";
+import { JournalShare } from "@/components/journal/JournalShare";
 
 function JournalBlockView({ block }: { block: JournalBlock }) {
   switch (block.type) {
@@ -184,6 +185,8 @@ export function JournalArticle({ post }: { post: JournalPost }) {
       </header>
 
       <div className="mx-auto max-w-[720px] px-5 py-14 md:px-8 md:py-20">
+        <JournalShare title={post.title} slug={post.slug} className="mb-10" />
+
         <div className="space-y-6">
           {post.blocks.map((block, index) => (
             <JournalBlockView key={`${block.type}-${index}`} block={block} />
@@ -202,6 +205,8 @@ export function JournalArticle({ post }: { post: JournalPost }) {
             </Card>
           </RevealItem>
         </Reveal>
+
+        <JournalShare title={post.title} slug={post.slug} className="mt-12" />
 
         <div className="mt-12 border-t border-border pt-8">
           <Link
