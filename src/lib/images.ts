@@ -55,6 +55,16 @@ export const IMAGES = {
   journal: {
     housingMarketHero: "/images/journal/housing-market-hero.jpg",
     housingMarketInterior: "/images/journal/housing-market-interior.jpg",
+    hyderabadRealEstateJuly2026:
+      "/images/journal/hyderabad-real-estate-july-2026.jpg",
+    realEstateMarketJuly4: "/images/journal/real-estate-market-july-4.jpg",
+    realEstateInventoryJuly5: "/images/journal/real-estate-inventory-july-5.jpg",
+    housingMarketResetJuly6: "/images/journal/housing-market-reset-july-6.jpg",
+    softwareTrendsJuly2: "/images/journal/software-trends-july-2.jpg",
+    softwareDevNewsJuly3: "/images/journal/software-dev-news-july-3.jpg",
+    aiCodingBoomJuly4: "/images/journal/ai-coding-boom-july-4.jpg",
+    aiCodingNewsJuly5: "/images/journal/ai-coding-news-july-5.jpg",
+    aiDevTrendsJuly6: "/images/journal/ai-dev-trends-july-6.jpg",
   },
 } as const;
 

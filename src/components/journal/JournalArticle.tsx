@@ -84,6 +84,13 @@ function JournalBlockView({ block }: { block: JournalBlock }) {
         </div>
       );
 
+    case "callout":
+      return (
+        <aside className="my-6 rounded-xl border border-accent/20 bg-accent-muted/40 px-5 py-4 text-[1rem] leading-relaxed text-foreground">
+          {block.text}
+        </aside>
+      );
+
     case "image":
       return (
         <figure className="my-10">

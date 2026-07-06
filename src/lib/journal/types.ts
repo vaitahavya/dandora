@@ -9,6 +9,7 @@ export type JournalBlock =
       rows: [string, string, string][];
     }
   | { type: "image"; src: string; alt: string; caption?: string }
+  | { type: "callout"; text: string }
   | { type: "faq"; title: string; items: { q: string; a: string }[] };
 
 export type JournalPost = {
