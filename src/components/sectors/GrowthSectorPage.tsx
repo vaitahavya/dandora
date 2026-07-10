@@ -7,10 +7,13 @@ import { IMAGES } from "@/lib/images";
 import { Reveal, RevealItem } from "@/components/ui/Reveal";
 import { Badge } from "@/components/ui/badge";
 import { useQuestionnaire } from "@/components/questionnaire/QuestionnaireProvider";
+import { PortfolioStrip } from "@/components/portfolio/PortfolioStrip";
+import { getPortfolioBySector } from "@/lib/portfolio";
 
 export function GrowthSectorPage({ content }: { content: GrowthSectorContent }) {
   const { open } = useQuestionnaire();
   const images = IMAGES.sectorPages[content.imageKey];
+  const sectorPortfolio = getPortfolioBySector(content.slug);
 
   const scrollToCosting = () => {
     document.getElementById("costing")?.scrollIntoView({ behavior: "smooth" });
@@ -179,6 +182,18 @@ export function GrowthSectorPage({ content }: { content: GrowthSectorContent }) 
           )}
         </div>
       </section>
+
+      {sectorPortfolio.length > 0 && (
+        <section className="border-t border-border bg-background-off py-[clamp(96px,12vh,160px)]">
+          <div className="mx-auto max-w-[1200px] px-5 md:px-8">
+            <PortfolioStrip
+              title={`Brand and design work for ${content.sectorLabel.toLowerCase()}.`}
+              description="A sample of logos, packaging, print, and campaigns we've produced for clients in this space."
+              items={sectorPortfolio}
+            />
+          </div>
+        </section>
+      )}
 
       {/* ── How we work (with band image) ────────────────────── */}
       <section className="bg-background-off py-[clamp(96px,12vh,160px)]">

@@ -6,6 +6,7 @@ import { ResonateBeat } from "@/components/home/ResonateBeat";
 import { SectorsBlock } from "@/components/home/SectorsBlock";
 import { ReframeBeat } from "@/components/home/ReframeBeat";
 import { RelyBeat } from "@/components/home/RelyBeat";
+import { PortfolioBeat } from "@/components/home/PortfolioBeat";
 import { FounderNote } from "@/components/home/FounderNote";
 import { ClientMarquee } from "@/components/home/ClientMarquee";
 import { DeRiskBand } from "@/components/home/DeRiskBand";
@@ -33,6 +34,7 @@ export default function HomePage() {
       <SectorsBlock />
       <ReframeBeat />
       <RelyBeat />
+      <PortfolioBeat />
       <FounderNote />
       <ClientMarquee />
       <DeRiskBand />

@@ -9,9 +9,12 @@ import { SITE } from "@/lib/constants";
 import { Reveal, RevealItem } from "@/components/ui/Reveal";
 import { Badge } from "@/components/ui/badge";
 import { ScopeBuildDialog } from "./ScopeBuildDialog";
+import { PortfolioStrip } from "@/components/portfolio/PortfolioStrip";
+import { getPortfolioBySector } from "@/lib/portfolio";
 
 export function SoftwareEngineeringPage() {
   const images = IMAGES.sectorPages["it-software"];
+  const sectorPortfolio = getPortfolioBySector("it-software");
 
   const scrollToDeliver = () => {
     document.getElementById("deliver")?.scrollIntoView({ behavior: "smooth" });
@@ -280,6 +283,18 @@ export function SoftwareEngineeringPage() {
           </Reveal>
         </div>
       </section>
+
+      {sectorPortfolio.length > 0 && (
+        <section className="border-t border-border bg-background-off py-[clamp(96px,12vh,160px)]">
+          <div className="mx-auto max-w-[1200px] px-5 md:px-8">
+            <PortfolioStrip
+              title="Brand and design for technology businesses."
+              description="Ad creatives, brochures, packaging, and stationery we've produced for software and tech clients."
+              items={sectorPortfolio}
+            />
+          </div>
+        </section>
+      )}
 
       {/* ── Our product (EduConnect) ─────────────────────────── */}
       <section className="bg-background py-[clamp(96px,12vh,160px)]">

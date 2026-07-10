@@ -3,11 +3,13 @@
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { RELY } from "@/lib/home";
-import { IMAGES } from "@/lib/images";
+import { getFeaturedPortfolio } from "@/lib/portfolio";
 import { Reveal, RevealItem } from "@/components/ui/Reveal";
 import { Badge } from "@/components/ui/badge";
 
 export function RelyBeat() {
+  const [primary, secondary] = getFeaturedPortfolio();
+
   return (
     <section className="bg-background py-[clamp(88px,11vh,140px)]">
       <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-5 md:px-8 lg:grid-cols-[1fr_1fr] lg:gap-16">
@@ -48,25 +50,28 @@ export function RelyBeat() {
                 aria-hidden
               />
               {/* main: production / storytelling */}
-              <div className="absolute right-0 top-0 h-[78%] w-[78%] overflow-hidden rounded-[1.5rem] ring-1 ring-foreground/10 shadow-[var(--shadow-glass)]">
-                <Image
-                  src={IMAGES.home.relyProduction}
-                  alt="High-end production and storytelling"
-                  fill
-                  sizes="(max-width: 1024px) 70vw, 32vw"
-                  className="object-cover"
-                />
-              </div>
-              {/* overlap: growth strategy */}
-              <div className="absolute bottom-0 left-0 h-[52%] w-[52%] overflow-hidden rounded-[1.25rem] ring-1 ring-foreground/10 shadow-[var(--shadow-glass)] outline outline-4 outline-background">
-                <Image
-                  src={IMAGES.home.relyStrategy}
-                  alt="Business development and growth strategy"
-                  fill
-                  sizes="(max-width: 1024px) 45vw, 22vw"
-                  className="object-cover"
-                />
-              </div>
+              {primary && (
+                <div className="absolute right-0 top-0 h-[78%] w-[78%] overflow-hidden rounded-[1.5rem] ring-1 ring-foreground/10 shadow-[var(--shadow-glass)]">
+                  <Image
+                    src={primary.src}
+                    alt={primary.alt}
+                    fill
+                    sizes="(max-width: 1024px) 70vw, 32vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              {secondary && (
+                <div className="absolute bottom-0 left-0 h-[52%] w-[52%] overflow-hidden rounded-[1.25rem] ring-1 ring-foreground/10 shadow-[var(--shadow-glass)] outline outline-4 outline-background">
+                  <Image
+                    src={secondary.src}
+                    alt={secondary.alt}
+                    fill
+                    sizes="(max-width: 1024px) 45vw, 22vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
               {/* glass location chip */}
               <div className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/15 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md">
                 <MapPin className="h-3.5 w-3.5" />

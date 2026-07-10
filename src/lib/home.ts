@@ -159,6 +159,12 @@ export const REFRAME = {
   ],
 } as const;
 
+export const PORTFOLIO = {
+  eyebrow: "SELECTED WORK",
+  h2: "Brand, film, and design — made in-house.",
+  sub: "Logos, packaging, print, and campaigns we've produced for clients across real estate, D2C, and technology — a sample of the work behind the marquee.",
+} as const;
+
 export const RELY = {
   h2: "Why founders bring us in.",
   body: "Dandora brings two things under one roof that usually live apart: a decade of high-end production and storytelling, and hard business-development and growth strategy. So your brand doesn't just look good — it moves inventory, books leads, and closes. Hyderabad-rooted. Built for real estate, D2C, and technology businesses that are done guessing.",

@@ -9,6 +9,8 @@ import { SERVICES } from "@/lib/constants";
 import { IMAGES } from "@/lib/images";
 import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
+import { PortfolioStrip } from "@/components/portfolio/PortfolioStrip";
+import { getMarketingPortfolio } from "@/lib/portfolio";
 
 const title = "Services — Strategy, Tech, Marketing & Ops";
 const description =
@@ -19,6 +21,8 @@ export const metadata: Metadata = buildPageMetadata({
   description,
   path: "/services",
 });
+
+const marketingPortfolio = getMarketingPortfolio(12);
 
 export default function ServicesPage() {
   return (
@@ -88,6 +92,15 @@ export default function ServicesPage() {
                 </div>
               </div>
             </Reveal>
+
+            {service.number === "03" && marketingPortfolio.length > 0 && (
+              <PortfolioStrip
+                className="mt-16 border-t border-border pt-16"
+                title="Design and production from our studio."
+                description="Brochures, packaging, campaigns, and brand assets — produced in-house for clients across sectors."
+                items={marketingPortfolio}
+              />
+            )}
           </Section>
         ))}
       </div>
